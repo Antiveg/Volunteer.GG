@@ -22,7 +22,7 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="h-full flex flex-col mx-48 justify-center relative">
+    <div className="h-full flex flex-col mx-48 mb-10 justify-center relative">
         {/* <LeaderboardAreaSelector /> */}
         <div className="ml-auto flex flex-row top-0 right-0 bg-orange-100 rounded-full">
           

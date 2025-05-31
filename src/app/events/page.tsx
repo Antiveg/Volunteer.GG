@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { ErrorBox, EventCarousel, SearchBar, EventCardSmall, Footer, /* EventFilterBox */ } from '@/components'
+import { ErrorBox, EventCarousel, SearchBar, EventCardSmall, Footer, LoadingBox, /* EventFilterBox */ } from '@/components'
 import { events_api_result } from '../../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { useEvents } from '@/hooks/useEvents';
@@ -29,7 +29,7 @@ const Events = () => {
   }
 
   if(isLoading){
-    return <div className="w-full h-full">Loading...</div>
+    return <LoadingBox message="Fetching event list..."/>
   }
 
   if(isError){
