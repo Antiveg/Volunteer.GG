@@ -8,6 +8,7 @@ declare module "next-auth" {
       email: string;
       status?: string; // if applicable
       img_url?: string;
+      usable_points: number;
     } & DefaultSession["user"];
   }
 
@@ -17,6 +18,7 @@ declare module "next-auth" {
     email: string;
     status?: string;
     img_url?: string;
+    usable_points: number;
   }
 }
 
@@ -27,5 +29,6 @@ declare module "next-auth/jwt" {
     email: string;
     status?: string;
     img_url?: string;
+    usable_points: number;
   }
 }

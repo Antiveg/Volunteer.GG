@@ -56,6 +56,7 @@ const handler = NextAuth({
         session.user.email = token.email;
         session.user.status = token.status;
         session.user.img_url = token.img_url
+        session.user.usable_points = token.usable_points;
       }
       return session;
     },
@@ -66,6 +67,7 @@ const handler = NextAuth({
         token.email = user.email;
         token.status = user.status;
         token.img_url = user.img_url;
+        token.usable_points = user.usable_points;
       }
       return token;
     }
