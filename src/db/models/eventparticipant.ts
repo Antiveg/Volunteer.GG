@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '@/db/sequelize'
 import OrganizationMember from './organizationmember';
 import Event from './event';
+import User from './user';
 
 const EventParticipant = sequelize.define('EventParticipant', {
   id: {
@@ -41,5 +42,6 @@ EventParticipant.belongsTo(OrganizationMember, {
   targetKey: 'user_id',
   as: 'organizationMember'  // optional alias to use in include
 })
+EventParticipant.belongsTo(User, { foreignKey: 'user_id' })
 
 export default EventParticipant;

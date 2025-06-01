@@ -1,10 +1,15 @@
 import React from 'react';
 import { img_temp } from '../dummies/dummy_data_frontend'
-import { Event } from '../types/event'
+import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { redirect } from 'next/navigation'
 
+
 interface Props {
-  event: Event | null
+  event: EventAttributes & {
+    photos?: EventImageAttributes[]
+    categories?: EventCategoryAttributes[]
+    organization_name?: string
+  }
   message?: string | null
 }
 

@@ -6,8 +6,8 @@ import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '
 
 interface Props {
   event: EventAttributes & {
-    photos: EventImageAttributes[]
-    categories: EventCategoryAttributes[]
+    photos?: EventImageAttributes[]
+    categories?: EventCategoryAttributes[]
     friend_count?: number
     organization_name?: string
   }
@@ -59,7 +59,7 @@ const EventCardSmall = ({ event } : Props) => {
 
           {/* Title */}
           <h3
-            className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 min-h-[1.6rem]"
+            className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.0em]"
             title={name}
           >
             {name}

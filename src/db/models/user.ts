@@ -1,6 +1,7 @@
 import { DataTypes, Optional, Model, Sequelize } from 'sequelize';
 import sequelize from '../sequelize'
 import { UserAttributes } from '@/types'
+import EventParticipant from './eventparticipant';
 
 const User = sequelize.define('User', {
   id: {
@@ -78,5 +79,7 @@ const User = sequelize.define('User', {
   tableName: 'users',   // match migration table name exactly
   timestamps: true,     // createdAt and updatedAt handled automatically
 });
+
+// User.hasMany(EventParticipant, { foreignKey: 'user_id' })
 
 export default User;

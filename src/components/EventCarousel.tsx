@@ -64,7 +64,7 @@ const EventCarousel = ({ events } : Props) => {
           <div
           className="flex-none mr-5 last:mr-0"
           >
-            <EventCardBig event={null} message="See more at below..."/>
+            <EventCardBig event={null as any} message="See more at below..."/>
           </div>
         </div>
       </div>
