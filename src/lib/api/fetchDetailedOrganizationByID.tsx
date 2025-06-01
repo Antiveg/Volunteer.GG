@@ -1,7 +1,5 @@
-import { ItemAttributes } from '@/types';
-
-export async function fetchItems(): Promise<ItemAttributes[]> {
-    const res = await fetch('/api/items')
+export async function fetchDetailedOrganizationByID(id: string) {
+    const res = await fetch(`/api/organizations/${id}`);
     if (!res.ok) {
         const errorBody = await res.json()
         const error = new Error(errorBody.message || 'Error occurred') as any

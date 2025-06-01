@@ -32,8 +32,8 @@ export default function CustomizedNavbar(){
         link: "/events",
     },
     {
-        name: "Organizations",
-        link: "/organizations",
+        name: "Community",
+        link: "/community",
     },
     {
         name: "Leaderboard",

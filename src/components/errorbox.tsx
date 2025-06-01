@@ -14,7 +14,7 @@ const ErrorBox = ({ error } : Props) => {
   const message = typeof error === 'string' ? error : error.message;
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen bg-red-50 p-6 text-center">
+    <div className="flex flex-col min-h-96 items-center justify-center w-full h-full bg-red-50 p-6 text-center">
       <h1 className="text-6xl font-bold text-red-600 mb-4">
         {status ?? 'Error'}
       </h1>
