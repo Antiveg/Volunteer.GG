@@ -42,7 +42,7 @@ const OrganizationDetailPage = () => {
 
   return (
     <div className="flex flex-col w-full h-auto gap-4">
-      <div className="flex flex-col font-sans text-gray-800 bg-gray-100 gap-4 mx-8 p-4 rounded-lg lg:flex-row h-auto">
+      <div className="flex flex-col font-sans text-gray-800 bg-gray-100 gap-4 mx-8 mb-10 p-4 rounded-lg lg:flex-row h-auto">
 
         <div className="flex-2 flex flex-col gap-5 lg:w-2/3 w-full">
 
