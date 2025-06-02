@@ -1,16 +1,12 @@
-import { NextResponse } from 'next/server';
-import { Event, EventImage, CategorizedEvent, EventCategory, Organization, EventParticipant, OrganizationMember } from '@/db/models'
-import { EventCategoryAttributes } from '@/types';
-import { Op } from 'sequelize'
+import { NextResponse, NextRequest } from 'next/server';
+import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization, OrganizationMember } from '@/db/models';
+import { Op } from 'sequelize';
 
-interface Props {
-  event_id: number
-  category_id: number
-  EventCategory: EventCategoryAttributes
-}
-
-export async function GET() {
-
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { uid: string } }
+) {
+  const uid = Number(params?.uid)
   const events = await Event.findAll({
     attributes: { exclude: ['createdAt', 'updatedAt'] },
     include: [
@@ -31,11 +27,8 @@ export async function GET() {
       {
         model: EventParticipant,
         where: {
-          status: {
-            [Op.in]: ['leader', 'activist', 'volunteer']
-          }
+          user_id: uid
         },
-        required: false, // In case no leader/activist is found
         include: [
           {
             model: OrganizationMember,
@@ -49,12 +42,12 @@ export async function GET() {
           }
         ]
       }
-    ]
+    ],
   })
 
   const flattenedEvents = events.map(event => {
     const eventData = event.toJSON()
-    const categories = eventData.CategorizedEvents?.map((categorizedEvent : Props) =>
+    const categories = eventData.CategorizedEvents?.map((categorizedEvent : any) =>
       categorizedEvent.EventCategory
     ).filter(Boolean) || [];
     const photos = eventData.EventImages || []

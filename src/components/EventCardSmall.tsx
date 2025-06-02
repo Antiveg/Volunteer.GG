@@ -59,28 +59,24 @@ const EventCardSmall = ({ event } : Props) => {
 
           {/* Title */}
           <h3
-            className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.0em]"
+            className="text-lg font-bold text-gray-900 mb-2 line-clamp-1"
             title={name}
           >
             {name}
           </h3>
 
-          {/* Info items */}
-          <div>
-            {/* DateTime */}
-            <div className="flex items-center mb-2 text-gray-600 text-sm">
-              <div className="w-7 h-7 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 text-gray-800 text-base">
-                🕒
-              </div>
-              <span className="line-clamp-1">{start_datetime}</span>
+          <div className="flex items-center mb-2 text-gray-600 text-sm">
+            <div className="w-7 h-7 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 text-gray-800 text-base">
+              🕒
             </div>
-            {/* Location */}
-            <div className="flex items-center text-gray-600 text-sm">
-              <div className="w-7 h-7 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 text-gray-800 text-base">
-                📍
-              </div>
-              <span className="line-clamp-1">{location || 'No location'}</span>
+            <span className="line-clamp-1">{start_datetime}</span>
+          </div>
+          {/* Location */}
+          <div className="flex items-center text-gray-600 text-sm">
+            <div className="w-7 h-7 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 text-gray-800 text-base">
+              📍
             </div>
+            <span className="line-clamp-1">{location || 'No location'}</span>
           </div>
         </div>
 

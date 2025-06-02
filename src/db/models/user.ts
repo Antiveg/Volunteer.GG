@@ -61,7 +61,7 @@ const User = sequelize.define('User', {
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'Active',
+    defaultValue: 'Standard',
   },
   dob: {
     type: DataTypes.DATEONLY,

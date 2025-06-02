@@ -4,6 +4,7 @@ import { ErrorBox, EventCarousel, SearchBar, EventCardSmall, Footer, LoadingBox,
 import { events_api_result } from '../../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { useEvents } from '@/hooks/useEvents';
+import EventsGrid from '@/components/EventsGrid';
 
 interface Event extends EventAttributes {
   photos: EventImageAttributes[],
@@ -54,13 +55,7 @@ const Events = () => {
             {(!filteredEvents || filteredEvents.length <= 0) &&
               <div className="flex min-h-72 flex justify-center items-center bg-gray-100 rounded-lg">No event meet the searched criteria...</div>
             }
-            {filteredEvents.length > 0 &&
-            <main className="w-128 flex grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-100 p-4 rounded-lg">
-              {filteredEvents && filteredEvents.length > 0 && filteredEvents.map(event => (
-                <EventCardSmall key={event.id} event={event}/>
-              ))}
-            </main>
-            }
+            <EventsGrid filteredEvents={filteredEvents}/>
           </div>
         </section>
       </main>
