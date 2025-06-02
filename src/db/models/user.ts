@@ -80,6 +80,4 @@ const User = sequelize.define('User', {
   timestamps: true,     // createdAt and updatedAt handled automatically
 });
 
-// User.hasMany(EventParticipant, { foreignKey: 'user_id' })
-
 export default User;

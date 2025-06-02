@@ -6,7 +6,7 @@ import { useOrganizations } from '@/hooks/useOrganizations';
 import { OrganizationAttributes, UserAttributes } from '@/types';
 import OrganizationCardSmall from '@/components/OrganizationCardSmall';
 import { useUsers } from '@/hooks/useUsers';
-import { ExpandableCard } from '@/components/FriendList';
+import { FriendList } from '@/components/FriendList';
 
 const OrganizationPage = () => {
 
@@ -91,7 +91,7 @@ const FriendListPage = () => {
       <SearchBar search={search} handleSearch={handleSearch}/>
       {filteredUsers && filteredUsers?.length > 0 &&
         <main className="mb-10 mt-4 w-128 flex flex-col h-96 overflow-scroll">
-          <ExpandableCard users={filteredUsers}/>
+          <FriendList users={filteredUsers}/>
         </main>
       }
     </div>

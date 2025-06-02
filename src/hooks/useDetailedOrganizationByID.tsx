@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchDetailedOrganizationByID } from '@/lib/api/fetchDetailedOrganizationByID';
 
-export function useOrganization(id: string) {
+export function useDetailedOrganizationByID(id: string) {
   return useQuery({
     queryKey: ['organization', id],
     queryFn: () => fetchDetailedOrganizationByID(id),

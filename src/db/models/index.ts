@@ -16,6 +16,27 @@ import UserCertificate from '@/db/models/usercertificate'
 import UserPurchase from '@/db/models/userpurchase'
 import UserRelation from '@/db/models/userrelation'
 
+OrganizationMember.belongsTo(Organization, { foreignKey: 'organization_id' })
+Organization.hasMany(OrganizationMember, { foreignKey: 'organization_id' })
+
+User.hasMany(EventParticipant, { foreignKey: 'user_id' })
+EventParticipant.belongsTo(User, { foreignKey: 'user_id' })
+
+OrganizationMember.belongsTo(User, { foreignKey: 'user_id' })
+
+CategorizedEvent.belongsTo(EventCategory, { foreignKey: 'category_id' })
+EventCategory.hasMany(CategorizedEvent, { foreignKey: 'category_id' })
+
+Organization.hasMany(OrganizationImage, { foreignKey: 'organization_id' })
+
+EventParticipant.belongsTo(OrganizationMember, { foreignKey: 'user_id' })
+
+Event.hasMany(EventImage, { foreignKey: 'event_id' });
+
+Event.hasMany(CategorizedEvent, { foreignKey: 'event_id' })
+
+Event.hasMany(EventParticipant, { foreignKey: 'event_id' })
+
 export {
   User,
   Event,

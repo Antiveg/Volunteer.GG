@@ -26,7 +26,7 @@ const EventCardSmall = ({ event } : Props) => {
   const event_details_url = `/event-detail/${id}`
 
   return (
-    <Link href={event_details_url} className="block no-underline text-inherit rounded-xl transform transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg w-full">
+    <Link href={event_details_url} className="block no-underline text-inherit rounded-xl transform transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg w-full min-w-72">
       <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col relative w-full h-full font-sans">
         {/* Image container */}
         <div className="relative w-full h-[160px] flex-shrink-0">

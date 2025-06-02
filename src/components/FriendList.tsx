@@ -6,7 +6,7 @@ import { useOutsideClick } from "@/hooks/use-outside-click";
 import { UserAttributes } from "@/types";
 import { Button } from "./ui/button";
 
-export function ExpandableCard({ users } : { users: (UserAttributes & { is_friend?: boolean })[] }) {
+export function FriendList({ users } : { users: (UserAttributes & { is_friend?: boolean })[] }) {
   const [active, setActive] = useState<any>(
     null
   );
@@ -91,14 +91,14 @@ export function ExpandableCard({ users } : { users: (UserAttributes & { is_frien
                     >
                       <b className="text-lg">{active.name}</b>
                     </motion.h3>
-                    <motion.p
+                    <motion.h1
                       layoutId={`description-${active.name}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400 "
                     >
                       <p className="text-md">{active.bio}
                         {/* {active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio}{active.bio} */}
                       </p>
-                    </motion.p>
+                    </motion.h1>
                   </div>
 
                   {/* <motion.a
@@ -131,8 +131,8 @@ export function ExpandableCard({ users } : { users: (UserAttributes & { is_frien
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid grid-cols-1 md:grid-cols-2 mx-auto w-full gap-4">
-        {users && users.map((user, index) => (
+      <ul className="grid grid-cols-1 md:grid-cols-2 mx-auto w-full gap-4 h-auto">
+        {users && users.map((user) => (
           <motion.div
             layoutId={`card-${user.name}-${id}`}
             key={`card-${user.id}-${id}`}

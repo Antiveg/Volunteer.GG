@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '@/db/sequelize'
 import Organization from './organization';
 import EventParticipant from './eventparticipant';
+import User from './user';
 
 const OrganizationMember = sequelize.define('OrganizationMember', {
   user_id: {
@@ -31,11 +32,6 @@ const OrganizationMember = sequelize.define('OrganizationMember', {
 }, {
   tableName: 'organizationmembers',
   timestamps: true,
-});
-
-OrganizationMember.belongsTo(Organization, { foreignKey: 'organization_id' });
-
-// Organization associations
-Organization.hasMany(OrganizationMember, { foreignKey: 'organization_id' })
+})
 
 export default OrganizationMember;

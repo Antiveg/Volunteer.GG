@@ -39,7 +39,6 @@ export async function GET() {
         include: [
           {
             model: OrganizationMember,
-            as: 'organizationMember',
             include: [
               {
                 model: Organization,
@@ -59,7 +58,7 @@ export async function GET() {
     ).filter(Boolean) || [];
     const photos = eventData.EventImages || []
 
-    const organization_name = eventData.EventParticipants?.[0]?.organizationMember?.Organization?.name || null;
+    const organization_name = eventData.EventParticipants?.[0]?.OrganizationMembers?.Organization?.name || null;
 
     return {
       ...eventData,

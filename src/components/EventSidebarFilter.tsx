@@ -86,7 +86,7 @@ const EventSidebarFilter = ({ category, setCategories, filters, setFilters } : P
       </button>
       {expandedFilters[sectionKey] && (
         <div className={styles.optionsList}>
-          {options.map(option => (
+          {options.map((option : any) => (
             <label key={option.id} className={styles.optionItem}>
               <input
                 type="checkbox"
@@ -132,7 +132,7 @@ const EventSidebarFilter = ({ category, setCategories, filters, setFilters } : P
         title="Categories"
         options={filterableCategories}
         selectedOptions={selectedFilterCategories}
-        onOptionChange={(value) => handleFilterChange(setSelectedFilterCategories, value)}
+        onOptionChange={(value : any) => handleFilterChange(setSelectedFilterCategories, value)}
         sectionKey="categories"
       />
 
@@ -140,7 +140,7 @@ const EventSidebarFilter = ({ category, setCategories, filters, setFilters } : P
         title="Locations"
         options={filterableLocations}
         selectedOptions={selectedFilterLocations}
-        onOptionChange={(value) => handleFilterChange(setSelectedFilterLocations, value)}
+        onOptionChange={(value : any) => handleFilterChange(setSelectedFilterLocations, value)}
         sectionKey="locations"
       />
 

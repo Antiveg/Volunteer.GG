@@ -22,6 +22,4 @@ const EventCategory = sequelize.define('EventCategory', {
   timestamps: true, 
 });
 
-// EventCategory.hasMany(CategorizedEvent, { foreignKey: 'category_id' })
-
 export default EventCategory;

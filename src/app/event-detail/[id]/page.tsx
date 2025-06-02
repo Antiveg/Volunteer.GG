@@ -107,7 +107,7 @@ const EventDetailPage = () => {
           </div>
 
           {/* Other Event Section */}
-          <div className="bg-white p-5 rounded-lg">
+          <div className="bg-white p-5 rounded-lg shadow">
             <h3 className="text-xl text-blue-900 mb-4"><b>Other Events...</b></h3>
             <div className="flex flex-row w-full h-auto gap-4 overflow-x-scroll p-2">
                   {event?.other_events && event?.other_events.map((event, index) => (

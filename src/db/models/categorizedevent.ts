@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '@/db/sequelize'
-import EventCategory from './eventcategory';
 
 const CategorizedEvent = sequelize.define('CategorizedEvent', {
   event_id: {
@@ -29,7 +28,5 @@ const CategorizedEvent = sequelize.define('CategorizedEvent', {
   tableName: 'categorizedevents',
   timestamps: true,
 })
-
-CategorizedEvent.belongsTo(EventCategory, { foreignKey: 'category_id' })
 
 export default CategorizedEvent;

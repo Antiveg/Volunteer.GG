@@ -11,7 +11,7 @@ interface ImageDataProps {
 export default function ImageCarousel({ images } : ImageDataProps) {
     return (
         <div className="relative overflow-hidden w-full h-full pb-14">
-        <Carousel slides={images} />
+            <Carousel slides={images} />
         </div>
     );
 }
