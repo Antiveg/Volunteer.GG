@@ -23,18 +23,14 @@ const handler = NextAuth({
             exclude: ['createdAt','updatedAt'],
           },
           where: {
-            email: email,
-            password: password
+            email: email
           }
         })
 
-        // if (!user || !(await bcrypt.compare(password, user.getDataValue('password')))) {
-        //   return null
-        // }
-
-        if (!user || !(password == user.getDataValue('password'))) {
+        if (!user || !(await bcrypt.compare(password, user.get('password') as string))) {
           return null
         }
+
         return user.get({ plain: true })
       },
     }),

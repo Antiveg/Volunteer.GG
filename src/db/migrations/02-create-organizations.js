@@ -4,40 +4,78 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('organizations', {
       id: {
-        allowNull: false,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       avg_rating: {
         type: Sequelize.FLOAT,
-        allowNull: true
+        allowNull: true,
       },
       credibility: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       logo_url: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
+      },
+      active_time: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      instagram: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      twitter: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      discord: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      other: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      creator_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users', // assumes 'users' table exists
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       }
     });
   },

@@ -34,6 +34,7 @@ export async function GET(
     const memberUserIds = members.map((member : any) => member.user_id)
 
     const events = await Event.findAll({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
         {
           model: EventImage,
@@ -50,30 +51,16 @@ export async function GET(
           ]
         },
         {
-          model: EventParticipant,
-          where: {
-            user_id: memberUserIds,
-            status: ['leader', 'activist']
-          },
-          required: false, // In case no leader/activist is found
-          include: [
-            {
-              model: OrganizationMember,
-              include: [
-                {
-                  model: Organization,
-                  attributes: ['name']
-                }
-              ]
-            }
-          ]
+          model: Organization,
+          attributes: ['name']
         }
-      ]
+      ],
+      where: { organization_id: plainOrganization?.id }
     })
 
     const flattenedEvents = events.map(event => {
       const eventData = event.toJSON()
-      const categories = eventData.CategorizedEvents?.map((categorizedEvent : Props) =>
+      const categories = eventData.CategorizedEvents?.map((categorizedEvent : any) =>
         categorizedEvent.EventCategory
       ).filter(Boolean) || [];
       const photos = eventData.EventImages || []

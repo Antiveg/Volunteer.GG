@@ -25,24 +25,16 @@ export async function GET(
         ]
       },
       {
+        model: Organization,
+        attributes: ['name']
+      },
+      {
         model: EventParticipant,
         where: {
           user_id: uid
         },
-        include: [
-          {
-            model: OrganizationMember,
-            as: 'organizationMember',
-            include: [
-              {
-                model: Organization,
-                attributes: ['name']
-              }
-            ]
-          }
-        ]
-      }
-    ],
+      },
+    ]
   })
 
   const flattenedEvents = events.map(event => {

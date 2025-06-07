@@ -1,13 +1,14 @@
 'use strict';
+const bcrypt = require('bcryptjs')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('users', [
       {
-        id: 1,
+        // id: 1,
         name: 'Alice Johnson',
         email: 'alice.johnson@example.com',
-        password: 'password123',
+        password: await bcrypt.hash('password123', 10),
         bio: 'Adventurer, tech enthusiast, and foodie. Always looking for new experiences.',
         city: 'San Francisco',
         province: 'California',
@@ -23,10 +24,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 2,
+        // id: 2,
         name: 'Bob Williams',
         email: 'bob.williams@example.com',
-        password: 'bob2021secure',
+        password: await bcrypt.hash('bob2021secure', 10),
         bio: 'Musician and traveler. Always up for an impromptu jam session.',
         city: 'Austin',
         province: 'Texas',
@@ -42,10 +43,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 3,
+        // id: 3,
         name: 'Charlie Brown',
         email: 'charlie.brown@example.com',
-        password: 'charliebrown2022',
+        password: await bcrypt.hash('charliebrown2022', 10),
         bio: 'Sports enthusiast and book lover. I enjoy a good read and an afternoon run.',
         city: 'Vancouver',
         province: 'British Columbia',
@@ -61,10 +62,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 4,
+        // id: 4,
         name: 'Dana Sutherland',
         email: 'dana.sutherland@example.com',
-        password: 'dana789secure',
+        password: await bcrypt.hash('dana789secure', 10),
         bio: 'Coffee lover and graphic designer. Passionate about creative projects and always learning new skills.',
         city: 'London',
         province: 'England',
@@ -80,10 +81,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 5,
+        // id: 5,
         name: 'Ethan Lee',
         email: 'ethan.lee@example.com',
-        password: 'ethan2021!secure',
+        password: await bcrypt.hash('ethan2021!secure', 10),
         bio: 'Tech geek and photography enthusiast. Always capturing moments through my lens.',
         city: 'Toronto',
         province: 'Ontario',

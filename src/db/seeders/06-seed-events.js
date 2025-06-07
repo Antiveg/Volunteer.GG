@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('events', [
       {
-        id: 1,
+        // id: 1,
         name: 'Tech Future Conference 2025',
         location: 'Jakarta Convention Center, Indonesia',
         base_points: 50,
@@ -14,10 +14,12 @@ module.exports = {
         end_datetime: new Date('2025-07-10T17:00:00Z'),
         certificate_url: 'https://static.vecteezy.com/system/resources/thumbnails/002/349/754/small_2x/modern-elegant-certificate-template-free-vector.jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        creator_id: 1,
+        organization_id: 1
       },
       {
-        id: 2,
+        // id: 2,
         name: 'Green Earth Clean-Up Drive',
         location: 'Greenfield Park, Bandung',
         base_points: 30,
@@ -27,10 +29,12 @@ module.exports = {
         end_datetime: new Date('2025-08-05T12:00:00Z'),
         certificate_url: 'https://static.vecteezy.com/system/resources/thumbnails/002/349/754/small_2x/modern-elegant-certificate-template-free-vector.jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        creator_id: 2,
+        organization_id: 2,
       },
       {
-        id: 3,
+        // id: 3,
         name: 'Digital Art & NFT Workshop',
         location: 'Creative Hall, Surabaya',
         base_points: 40,
@@ -40,10 +44,12 @@ module.exports = {
         end_datetime: new Date('2025-09-12T17:30:00Z'),
         certificate_url: 'https://static.vecteezy.com/system/resources/thumbnails/002/349/754/small_2x/modern-elegant-certificate-template-free-vector.jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        creator_id: 3,
+        organization_id: 3,
       },
       {
-        id: 4,
+        // id: 4,
         name: 'Youth Leadership Summit',
         location: 'Youth Center, Yogyakarta',
         base_points: 60,
@@ -53,10 +59,12 @@ module.exports = {
         end_datetime: new Date('2025-10-01T18:00:00Z'),
         certificate_url: 'https://static.vecteezy.com/system/resources/thumbnails/002/349/754/small_2x/modern-elegant-certificate-template-free-vector.jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        creator_id: 4,
+        organization_id: 4,
       },
       {
-        id: 5,
+        // id: 5,
         name: 'Culinary Culture Expo',
         location: 'Expo Hall, Bali',
         base_points: 20,
@@ -66,7 +74,9 @@ module.exports = {
         end_datetime: new Date('2025-11-20T15:30:00Z'),
         certificate_url: 'https://static.vecteezy.com/system/resources/thumbnails/002/349/754/small_2x/modern-elegant-certificate-template-free-vector.jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        creator_id: 5,
+        organization_id: 5,
       }
     ]);
   },

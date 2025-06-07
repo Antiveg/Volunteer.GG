@@ -1,20 +1,71 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react"
+// import {
+//   // IconBrandGithub,
+//   IconBrandGoogle,
+//   // IconBrandOnlyfans,
+// } from "@tabler/icons-react"
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 export default function Signup() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const router = useRouter()
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [formError, setFormError] = useState<string | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
-  };
+    setErrors({});
+    setFormError(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const name = formData.get("name")?.toString().trim() || "";
+    const email = formData.get("email")?.toString().trim() || "";
+    const password = formData.get("password")?.toString() || "";
+    const location = formData.get("location")?.toString().trim() || "";
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const locationRegex = /^[^,]+,\s*[^,]+,\s*[^,]+$/;
+
+    const newErrors: { [key: string]: string } = {};
+
+    if (!name) newErrors.name = "name is required";
+    if (!emailRegex.test(email)) newErrors.email = "invalid email format";
+    if (!locationRegex.test(location)) newErrors.location = "must in format: 'city, province, country'";
+    if (!password) newErrors.password = "password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setFormError("Register failed. Please check your input again.");
+      return;
+    }
+
+    const payload = { name, email, password, location };
+
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Signup failed");
+
+      router.push("/auth/signin");
+    } catch (err: any) {
+      console.error(err);
+      setFormError("Register failed due to internal issues");
+    }
+  }
+
   return (
     <div className="w-full h-auto pb-32">
       <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-[rgba(255,255,255,1)] p-4 md:rounded-2xl md:p-8 dark:bg-black">
@@ -35,22 +86,65 @@ export default function Signup() {
               <Label htmlFor="lastname">Email</Label>
               <Input id="lastname" placeholder="enter your email here" type="text" />
             </LabelInputContainer>
-          </div> */}
-          <LabelInputContainer className="mb-4">
+          </div>  */}
+          <LabelInputContainer className="relative mb-4">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="ex. John Doe" type="text" />
+            <Input id="name" name="name" placeholder="ex. John Doe" type="text"
+            className={errors.name ? "bg-red-100" : ""}
+            onChange={() => {
+              if (errors.name) {
+                setErrors((prev) => {
+                  const { name, ...rest } = prev;
+                  return rest;
+                })
+              }
+            }}/>
+            {errors.name && <p className="absolute bottom-[-15] right-2 text-red-500 text-xs">{errors.name}</p>}
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="password">City, Province, Country</Label>
-            <Input id="password" placeholder="ex. (Jakarta, DKI Jakarta, Indonesia)" type="text" />
+
+          <LabelInputContainer className="relative mb-4">
+            <Label htmlFor="location">City, Province, Country</Label>
+            <Input id="location" name="location" placeholder="ex. Jakarta, DKI Jakarta, Indonesia" type="text"
+            className={errors.location ? "bg-red-100" : ""} 
+            onChange={() => {
+              if (errors.location) {
+                setErrors((prev) => {
+                  const { location, ...rest } = prev;
+                  return rest;
+                })
+              }
+            }}/>
+            {errors.location && <p className="absolute bottom-[-15] right-2 text-red-500 text-xs">{errors.location}</p>}
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
+
+          <LabelInputContainer className="relative mb-4">
             <Label htmlFor="email">Email Address</Label>
-            <Input id="email" placeholder="ex. john.doe@example.com" type="email" />
+            <Input id="email" name="email" placeholder="ex. john.doe@example.com" type="text"
+            className={errors.email ? "bg-red-100" : ""}
+            onChange={() => {
+              if (errors.email) {
+                setErrors((prev) => {
+                  const { email, ...rest } = prev;
+                  return rest;
+                })
+              }
+            }}/>
+            {errors.email && <p className="absolute bottom-[-15] right-2 text-red-500 text-xs">{errors.email}</p>}
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
+
+          <LabelInputContainer className="relative mb-4">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" placeholder="••••••••" type="password" />
+            <Input id="password" name="password" placeholder="••••••••" type="password"
+            className={errors.password ? "bg-red-100" : ""}
+            onChange={() => {
+              if (errors.password) {
+                setErrors((prev) => {
+                  const { password, ...rest } = prev;
+                  return rest;
+                })
+              }
+            }}/>
+            {errors.password && <p className="absolute bottom-[-15] right-2 text-red-500 text-xs">{errors.password}</p>}
           </LabelInputContainer>
           {/* <LabelInputContainer className="mb-8">
             <Label htmlFor="twitterpassword">Your twitter password</Label>
@@ -60,7 +154,7 @@ export default function Signup() {
               type="twitterpassword"
             />
           </LabelInputContainer> */}
-          <p className="text-sm text-center">Already have an account? 
+          <p className="text-sm text-center mt-6">Already have an account? 
             <Link className="text-blue-500" href="/auth/signin"> <u>Sign in here!</u></Link>
           </p>
           <button
@@ -70,11 +164,16 @@ export default function Signup() {
             Sign up &rarr;
             <BottomGradient />
           </button>
+          {formError && (
+            <div className="my-4 text-center text-red-600 font-medium text-sm">
+              {formError}
+            </div>
+          )}
 
           <div className="my-6 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
-          <div className="flex flex-col space-y-4">
-            {/* <button
+          {/* <div className="flex flex-col space-y-4">
+            <button
               className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
               type="submit"
             >
@@ -83,7 +182,7 @@ export default function Signup() {
                 GitHub
               </span>
               <BottomGradient />
-            </button> */}
+            </button>
             <button
               className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
               type="submit"
@@ -94,7 +193,7 @@ export default function Signup() {
               </span>
               <BottomGradient />
             </button>
-            {/* <button
+            <button
               className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
               type="submit"
             >
@@ -103,8 +202,8 @@ export default function Signup() {
                 OnlyFans
               </span>
               <BottomGradient />
-            </button> */}
-          </div>
+            </button>
+          </div> */}
         </form>
       </div>
     </div>

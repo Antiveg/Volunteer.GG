@@ -39,7 +39,8 @@ const Events = () => {
 
   return (
     <div className="bg-white">
-      <main className="w-full h-auto min-h-screen px-16 pb-20">
+      <main className="flex flex-col w-full h-auto min-h-screen px-16 pb-20 gap-4">
+        <h1 className="text-xl"><b>See Available Events</b></h1>
         <section className="w-full mb-8 h-[350px]">
           <EventCarousel events={events} />
         </section>

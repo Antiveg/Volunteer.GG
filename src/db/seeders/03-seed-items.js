@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('items', [
       {
-        id: 1,
+        // id: 1,
         name: 'Gold Trophy',
         description: 'A shining gold trophy awarded for excellence in the annual competition.',
         img_url: 'https://img.freepik.com/free-photo/free-bonus-gift-offer-sample-trial-graphic-concept_53876-124905.jpg?semt=ais_hybrid&w=740',
@@ -17,7 +17,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 2,
+        // id: 2,
         name: 'Exclusive Event T-shirt',
         description: 'A limited edition T-shirt with the event logo and a cool design.',
         img_url: 'https://img.freepik.com/free-photo/free-bonus-gift-offer-sample-trial-graphic-concept_53876-124905.jpg?semt=ais_hybrid&w=740',
@@ -30,7 +30,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 3,
+        // id: 3,
         name: 'VIP Lounge Access',
         description: 'Access to the exclusive VIP lounge during the event with free refreshments.',
         img_url: 'https://img.freepik.com/free-photo/free-bonus-gift-offer-sample-trial-graphic-concept_53876-124905.jpg?semt=ais_hybrid&w=740',
@@ -43,7 +43,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 4,
+        // id: 4,
         name: 'Commemorative Medal',
         description: 'A beautiful silver medal to commemorate your participation.',
         img_url: 'https://img.freepik.com/free-photo/free-bonus-gift-offer-sample-trial-graphic-concept_53876-124905.jpg?semt=ais_hybrid&w=740',
@@ -56,7 +56,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 5,
+        // id: 5,
         name: 'Exclusive VIP Pass',
         description: 'A pass that allows priority seating and backstage access at any event.',
         img_url: 'https://img.freepik.com/free-photo/free-bonus-gift-offer-sample-trial-graphic-concept_53876-124905.jpg?semt=ais_hybrid&w=740',

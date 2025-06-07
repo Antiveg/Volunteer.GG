@@ -131,13 +131,13 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid grid-cols-1 md:grid-cols-2 mx-auto w-full gap-4 h-auto">
+      <ul className="grid grid-cols-1 mx-auto w-full gap-2 h-auto">
         {users && users.map((user) => (
           <motion.div
             layoutId={`card-${user.name}-${id}`}
             key={`card-${user.id}-${id}`}
             onClick={() => setActive(user)}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer bg-orange-100/25"
+            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer bg-orange-100/25  shadow-sm"
           >
             <div className="flex gap-4 flex-col md:flex-row ">
               <motion.div layoutId={`image-${user.name}-${id}`}>

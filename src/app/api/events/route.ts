@@ -29,24 +29,8 @@ export async function GET() {
         ]
       },
       {
-        model: EventParticipant,
-        where: {
-          status: {
-            [Op.in]: ['leader', 'activist', 'volunteer']
-          }
-        },
-        required: false, // In case no leader/activist is found
-        include: [
-          {
-            model: OrganizationMember,
-            include: [
-              {
-                model: Organization,
-                attributes: ['name']
-              }
-            ]
-          }
-        ]
+        model: Organization,
+        attributes: ['name']
       }
     ]
   })
@@ -58,7 +42,7 @@ export async function GET() {
     ).filter(Boolean) || [];
     const photos = eventData.EventImages || []
 
-    const organization_name = eventData.EventParticipants?.[0]?.OrganizationMember?.Organization?.name || null;
+    const organization_name = eventData?.Organization?.name || null;
 
     return {
       ...eventData,

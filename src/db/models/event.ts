@@ -40,9 +40,29 @@ const Event = sequelize.define('Event', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  creator_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  },
+  organization_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'organizations',
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  },
 }, {
   tableName: 'events',
-  timestamps: true, // Sequelize will automatically handle createdAt and updatedAt
+  timestamps: true,
 });
 
 export default Event;
