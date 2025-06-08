@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useState } from "react";
 import { useParams } from 'next/navigation';
 import { ErrorBox, Footer, LoadingBox } from "@/components";
@@ -178,10 +179,11 @@ const EventDetailPage = () => {
                 JOIN HERE
               </button>
             )}
-
-            <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition">
-              Contact Organization
-            </button>
+            <Link href="/chat/demo" passHref>
+              <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition">
+                Contact Organization
+              </button>
+            </Link>
             <button className="w-full py-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition">
               Report This Event
             </button>
