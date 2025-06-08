@@ -8,6 +8,11 @@ html, body {
   padding: 0;
 }
 
+.ProseMirror:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 @layer base {
   :root {
 

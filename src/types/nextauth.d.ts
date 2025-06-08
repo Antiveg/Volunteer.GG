@@ -9,6 +9,7 @@ declare module "next-auth" {
       status?: string; // if applicable
       img_url?: string;
       usable_points: number;
+      organization_id: number | null
     } & DefaultSession["user"];
   }
 
@@ -19,6 +20,7 @@ declare module "next-auth" {
     status?: string;
     img_url?: string;
     usable_points: number;
+    organization_id: number | null
   }
 }
 
@@ -30,5 +32,6 @@ declare module "next-auth/jwt" {
     status?: string;
     img_url?: string;
     usable_points: number;
+    organization_id: number | null
   }
 }

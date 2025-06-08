@@ -72,7 +72,7 @@ const EventCardBig = ({ event, message } : Props) => {
             <span className="mr-2">📍</span> {location}
           </div>
           <div className="flex items-center">
-            <span className="mr-2">👤</span> {organization_name}
+            <span className="mr-2">👤</span> {organization_name ?? "Personal"}
           </div>
         </div>
         <div className="text-sm text-gray-700 mb-4">

@@ -9,3 +9,4 @@ export { default as ErrorBox } from './ErrorBox';
 export { default as LoadingBox } from './LoadingBox';
 export { FriendList } from './FriendList';
 export { ItemCard } from './ItemCard';
+export { default as FileUploadUI } from './FileUploadUI'
