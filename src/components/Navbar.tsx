@@ -64,7 +64,7 @@ export default function CustomizedNavbar(){
           {status === "unauthenticated" && <NavbarButton variant="primary" onClick={() => router.push('/auth/signup')}>Sign Up</NavbarButton>}
           {status === "authenticated" && <NavbarButton variant="dark" onClick={() => signOut()}>Sign Out</NavbarButton>}
           {status === "authenticated" && 
-            <div className="relative h-9 aspect-square">
+            <div className="relative h-9 aspect-square" onClick={() => router.push('/profile')}>
               <Image
                 // src={session?.user?.img_url || "/assets/userIcon.png"} 
                 src="/assets/userIcon.png"

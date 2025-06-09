@@ -132,3 +132,19 @@ export default function Footer() {
     </footer>
   );
 }
+
+// {/* Footer - now with a lighter background */}
+//       <footer className="bg-white p-6 mt-8 rounded-t-lg shadow-inner">
+//         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
+//           <div className="flex items-center space-x-2 mb-4 md:mb-0">
+//             {/* Handshake icon (menggunakan FontAwesome) */}
+//             <i className="fas fa-handshake text-blue-600 text-2xl"></i> {/* Changed icon color */}
+//             <span>© 2024 Your Company. All rights reserved.</span>
+//           </div>
+//           <nav className="flex space-x-4">
+//             <a href="#" className="hover:text-gray-900 transition-colors duration-200">Privacy Policy</a>
+//             <a href="#" className="hover:text-gray-900 transition-colors duration-200">Terms of Service</a>
+//             <a href="#" className="hover:text-gray-900 transition-colors duration-200">Contact Us</a>
+//           </nav>
+//         </div>
+//       </footer>

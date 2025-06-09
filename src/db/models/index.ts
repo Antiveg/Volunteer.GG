@@ -87,6 +87,7 @@ UserPurchase.belongsTo(Item, { foreignKey: 'item_id' });
 // UserHistory
 UserHistory.belongsTo(User, { foreignKey: 'user_id' });
 UserHistory.belongsTo(UserPurchase, { foreignKey: 'purchase_id' });
+UserHistory.belongsTo(Event, { foreignKey: 'user_id' })
 
 // Chat
 Chat.belongsTo(User, { as: 'sender', foreignKey: 'sender_id' });
@@ -102,6 +103,7 @@ Event.belongsTo(User, { foreignKey: 'creator_id' });
 Event.hasMany(EventImage, { foreignKey: 'event_id' });
 Event.hasMany(CategorizedEvent, { foreignKey: 'event_id' });
 Event.belongsTo(Organization, { foreignKey: 'organization_id' })
+Event.hasMany(UserHistory, { foreignKey: 'user_id' })
 
 // EventImages
 EventImage.belongsTo(Event, { foreignKey: 'event_id' });
@@ -112,6 +114,9 @@ CategorizedEvent.belongsTo(EventCategory, { foreignKey: 'category_id' });
 
 // EventCategories
 EventCategory.hasMany(CategorizedEvent, { foreignKey: 'category_id' });
+
+// UserPurchase
+UserPurchase.hasMany(UserHistory, { foreignKey: 'purchase_id' })
 
 export {
   User,

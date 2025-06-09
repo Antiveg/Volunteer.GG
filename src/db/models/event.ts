@@ -40,6 +40,11 @@ const Event = sequelize.define('Event', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: "Registration"
+  },
   creator_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
