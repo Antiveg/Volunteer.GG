@@ -76,7 +76,7 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
                 <img
                   width={200}
                   height={200}
-                  src={active.img_url}
+                  src={active.img_url ?? "https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"}
                   alt={active.name}
                   className="w-full h-40 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
                 />
@@ -144,7 +144,7 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
                 <img
                   width={100}
                   height={100}
-                  src={user.img_url}
+                  src={user.img_url ?? "https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"}
                   alt={user.name}
                   className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
                 />
@@ -209,6 +209,42 @@ export const CloseIcon = () => {
     </motion.svg>
   );
 };
+
+export const FriendCard = ({onClick = null, user} : any) => {
+  return (
+    <motion.div
+      layoutId={`card-${user.name}`}
+      className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer bg-orange-100/25  shadow-sm"
+      onClick={onClick}
+    >
+      <div className="flex gap-4 flex-col md:flex-row ">
+        <motion.div layoutId={`image-${user.name}`}>
+          <img
+            width={100}
+            height={100}
+            src={user.img_url ?? "https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"}
+            alt={user.name}
+            className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
+          />
+        </motion.div>
+        <div className="flex flex-1 flex-col">
+          <motion.h3
+            layoutId={`title-${user.name}`}
+            className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left"
+          >
+            {user.name}
+          </motion.h3>
+          <motion.p
+            layoutId={`description-${user.bio}`}
+            className="text-neutral-600 dark:text-neutral-400 text-center md:text-left line-clamp-2 text-sm"
+          >
+            {user.bio}
+          </motion.p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 // const cards = [
 //   {

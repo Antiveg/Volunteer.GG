@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { ErrorBox, Footer, LoadingBox } from "@/components";
 import { useDetailedEventByID } from "@/hooks/useDetailedEventByID";
 import { ImageCarousel, EventCardSmall } from "@/components";
+import DOMPurify from 'dompurify'
 import { events_api_result } from "@/dummies/dummy_data_frontend";
 
 const EventDetailPage = () => {
@@ -47,9 +48,9 @@ const EventDetailPage = () => {
         {/* Main content */}
         <div className="flex-2 flex flex-col gap-5 lg:w-2/3 w-full">
           {/* Header Image */}
-          <ImageCarousel images={event?.event_images || []}/>
+          <ImageCarousel images={(event?.event_images?.length || 0) <= 0 ? [{img_url: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png", id: 0}] : (event?.event_images ?? [])}/>
 
-          {/* Company Info Card */}
+          {event?.organization && Object.keys(event.organization).length > 0 &&
           <div className="bg-white p-5 rounded-lg shadow flex gap-5 items-start relative">
             <div className="flex-shrink-0">
               <img
@@ -97,14 +98,13 @@ const EventDetailPage = () => {
             >
               See more about Us ...
             </a>
-          </div>
+          </div>}
+          
 
           {/* Descriptions About the Event */}
           <div className="bg-white p-5 rounded-lg shadow">
             <h3 className="text-xl text-blue-900 mb-3"><b>Descriptions About the Event</b></h3>
-            <p className="text-gray-600 leading-relaxed text-justify">
-              {event?.description}
-            </p>
+            <p className="text-gray-600 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.description || "") }}/>
           </div>
 
           {/* Other Event Section */}
@@ -146,7 +146,7 @@ const EventDetailPage = () => {
               <p className="flex gap-2"><span>📍</span>{event?.location}</p>
             </div>
             <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>🏢</span>{event?.organization?.name}</p>
+              <p className="flex gap-2"><span>🏢</span>{event?.organization?.name ?? 'Personal'}</p>
             </div>
             <div className="flex items-center gap-2 text-gray-700 text-sm">
               <p className="flex gap-2"><span>⭐</span>+{event?.final_points} points</p>

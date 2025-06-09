@@ -77,7 +77,7 @@ const EventCreateForm = () => {
     }
   }
 
-  const { session, status } = useSessionRedirect()
+  const { session } = useSessionRedirect()
 
   if (!session) {
       return <LoadingBox message="Redirecting to sign in page..."/>
@@ -213,7 +213,7 @@ const EventCreateForm = () => {
             </div>
           </div>
 
-          {/* <p className="my-2 text-red-500 text-center">{formError ?? "\u00A0"}</p> */}
+          <p className="my-2 text-red-500 text-center">{formError ?? "\u00A0"}</p>
 
           {/* Submit Button */}
           <Button type="submit" className="w-full bg-blue-600 text-white">Create Event</Button>

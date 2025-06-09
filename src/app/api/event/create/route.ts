@@ -3,7 +3,7 @@ import { parseForm } from '@/lib/uploadService';
 import { Readable } from 'stream';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { CategorizedEvent, Event, EventImage } from '@/db/models';
+import { CategorizedEvent, Event, EventImage, EventParticipant } from '@/db/models';
 
 export async function POST(req: NextRequest) {
 
@@ -37,6 +37,12 @@ export async function POST(req: NextRequest) {
 
     // Save event
     const event = await Event.create(eventData);
+
+    await EventParticipant.create({
+      user_id: session.user.id,
+      event_id: event.get('id'),
+      status: "leader",
+    })
 
     if (fields.category) {
       await CategorizedEvent.create({

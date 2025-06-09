@@ -23,8 +23,8 @@ const TipTapEditor = ({
   if (!editor) return null;
 
   return (
-    <div className="flex flex-col border border-dashed rounded h-full p-4 gap-2 bg-gray-100/25">
-      <EditorContent editor={editor} className="bg-white min-h-48 p-2 rounded h-auto break-words break-all overflow-y-auto overflow-x-hidden" />
+    <div className="flex flex-col border border-dashed rounded flex-1 p-4 gap-2 bg-gray-100/25 h-full">
+      <EditorContent editor={editor} className="bg-white min-h-[150px] max-h-[275px] p-2 rounded h-auto break-words break-all overflow-y-auto overflow-x-hidden" />
       <div className="flex flex-wrap gap-2 ml-auto">
         <button
           type="button"

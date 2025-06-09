@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { OrganizationAttributes } from '@/types'
 import { Button } from './ui/button'
+import DOMPurify from 'dompurify'
 
 interface Props {
   organization: OrganizationAttributes & {
@@ -40,23 +41,23 @@ const OrganizationCardSmall = ({ organization } : Props) => {
             className="w-1/4 object-cover block"
           />
           <div className="flex flex-col h-full w-auto justify-center">
-            <div className="text-lg line-clamp-1"><b>{organization?.name}</b></div>
+            <div className="text-lg line-clamp-1"><b>{name}</b></div>
             <div className=" text-sm">
                 Event Hosted : <strong>5</strong>
             </div>
             <div className=" text-sm">
                 Credibility : 
-                <span className={organization?.credibility === "Trusted" ? "text-green-600" : ""}>
-                <b> {organization?.credibility}</b>
+                <span className={credibility === "Trusted" ? "text-green-600" : ""}>
+                <b> {credibility}</b>
                 </span>
             </div>
             <div className="flex items-center gap-1 text-sm">
-                <div className="flex text-lg">{renderStars(organization?.avg_rating ?? 0)}</div> {organization?.avg_rating ?? 0}/5.0
+                <div className="flex text-lg">{renderStars(avg_rating ?? 0)}</div> {avg_rating ?? 0}/5.0
             </div>
           </div>
         </div>
         <hr />
-        <p className="w-full line-clamp-3 min-h-[4.5rem] text-sm">{organization.description}</p>
+        <p className="w-full line-clamp-3 min-h-[4.5rem] text-sm" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description as string) }}/>
         <div className="flex flex-row justify-end gap-2">
             <Button variant="default">See More</Button>
         </div>

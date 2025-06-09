@@ -19,10 +19,12 @@ const Organization = sequelize.define('Organization', {
   avg_rating: {
     type: DataTypes.FLOAT,
     allowNull: true,
+    defaultValue: 0
   },
   credibility: {
     type: DataTypes.STRING,
     allowNull: true,
+    defaultValue: "Neutral"
   },
   logo_url: {
     type: DataTypes.STRING,

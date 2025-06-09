@@ -1,8 +1,9 @@
 import { OrganizationMember, User } from "@/db/models";
 import bcrypt from "bcryptjs";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+export const authOptions : AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",

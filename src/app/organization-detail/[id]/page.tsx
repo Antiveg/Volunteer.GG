@@ -1,5 +1,7 @@
 "use client";
 
+import DOMPurify from 'dompurify'
+import { FaTwitter, FaDiscord, FaPhone, FaInstagram, FaGlobe, FaCalendar, FaLocationArrow } from 'react-icons/fa';
 import { useState } from "react";
 import { useParams } from 'next/navigation';
 import { ErrorBox, Footer, FriendList, LoadingBox } from "@/components";
@@ -46,7 +48,7 @@ const OrganizationDetailPage = () => {
 
         <div className="flex-2 flex flex-col gap-5 lg:w-2/3 w-full">
 
-          <ImageCarousel images={organization?.organization_images || []}/>
+          <ImageCarousel images={organization?.organization_images.length <= 0 ? [{img_url: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png", id: 0}] : organization?.organization_images}/>
 
           <div className="bg-white p-5 rounded-lg shadow flex gap-5 items-start relative">
             <div className="flex-shrink-0">
@@ -93,9 +95,7 @@ const OrganizationDetailPage = () => {
 
           <div className="bg-white p-5 rounded-lg shadow">
             <h3 className="text-xl text-blue-900 mb-3"><b>About Organization</b></h3>
-            <p className="text-gray-600 leading-relaxed text-justify">
-              {organization?.description}
-            </p>
+            <p className="text-gray-600 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(organization?.description as string) }}/>
           </div>
 
           <div className="bg-white p-5 rounded-lg shadow flex flex-col h-auto">
@@ -124,22 +124,62 @@ const OrganizationDetailPage = () => {
         {/* Sidebar */}
         <div className=" relative flex-1">
           <div className="w-full p-5 rounded-lg shadow max-h-fit flex flex-col gap-3 bg-white lg:sticky lg:top-24">
+            
             <h1 className="text-xl text-blue-900 mb-1"><b>{organization?.name}</b></h1>
+            
             <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>📅</span>{organization?.active_time}</p>
+              <p className="flex gap-2 justify-center items-center text-md"><FaCalendar /> {organization?.active_time}</p>
             </div>
+
             <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>📍</span>{organization?.createdAt}</p>
+              <p className="flex gap-2 justify-center items-center text-md"><FaLocationArrow /> {organization?.location}</p>
             </div>
-            <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>🏢</span>{organization?.location}</p>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>⭐</span>{organization?.contact}</p>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 text-sm">
-              <p className="flex gap-2"><span>👥</span>{organization?.policy}</p>
-            </div>
+
+            {organization?.phone && (
+              <div className="flex items-center gap-2 text-gray-700 text-sm">
+                <p className="flex gap-2 justify-center items-center text-md"><FaPhone /> {organization.phone}</p>
+              </div>
+            )}
+
+            {organization?.instagram && (
+              <div className="flex items-center gap-2 text-gray-700 text-sm">
+                <p className="flex gap-2 justify-center items-center text-md">
+                  <FaInstagram />
+                  <a href={organization.instagram} target="_blank" rel="noopener noreferrer">
+                    Instagram | {organization.instagram}
+                  </a>
+                </p>
+              </div>
+            )}
+
+            {organization?.twitter && (
+              <div className="flex items-center gap-2 text-gray-700 text-sm">
+                <p className="flex gap-2 justify-center items-center text-md">
+                  <FaTwitter />
+                  <a href={organization.twitter} target="_blank" rel="noopener noreferrer">
+                    Twitter | {organization.twitter}
+                  </a>
+                </p>
+              </div>
+            )}
+
+            {organization?.discord && (
+              <div className="flex items-center gap-2 text-gray-700 text-sm">
+                <p className="flex gap-2 justify-center items-center text-md">
+                  <FaDiscord />
+                  <a href={organization.discord} target="_blank" rel="noopener noreferrer">
+                    Discord | {organization.discord}
+                  </a>
+                  
+                </p>
+              </div>
+            )}
+
+            {organization?.other && (
+              <div className="flex items-center gap-2 text-gray-700 text-sm">
+                <p className="flex gap-2 justify-center items-center text-md"><FaGlobe /> Other | {organization.other}</p>
+              </div>
+            )}
 
             <div className="mt-3 mb-4">
               <h4 className="text-base font-semibold text-gray-900 mb-1">

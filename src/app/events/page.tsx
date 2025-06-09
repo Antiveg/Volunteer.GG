@@ -5,6 +5,9 @@ import { events_api_result } from '../../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { useEvents } from '@/hooks/useEvents';
 import EventsGrid from '@/components/EventsGrid';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface Event extends EventAttributes {
   photos: EventImageAttributes[],
@@ -12,6 +15,9 @@ interface Event extends EventAttributes {
 }
 
 const Events = () => {
+
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const { data: events, isLoading, isError, error } = useEvents()
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
@@ -40,7 +46,15 @@ const Events = () => {
   return (
     <div className="bg-white">
       <main className="flex flex-col w-full h-auto min-h-screen px-16 pb-20 gap-4">
-        <h1 className="text-xl"><b>See Available Events</b></h1>
+        <div className="text-2xl flex">
+          <b>SEE AVAILABLE EVENTS</b>
+          <Button variant="default" 
+          onClick={() => router.push('/create-event')}
+          disabled={!session}
+          className={!session ? "bg-red-500 ml-auto" : "bg-blue-500 ml-auto"}>
+            Create New Event
+          </Button>
+        </div>
         <section className="w-full mb-8 h-[350px]">
           <EventCarousel events={events} />
         </section>

@@ -2,7 +2,7 @@ import React from 'react';
 import { img_temp } from '../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { redirect } from 'next/navigation'
-
+import DOMPurify from 'dompurify'
 
 interface Props {
   event: EventAttributes & {
@@ -28,12 +28,10 @@ const EventCardBig = ({ event, message } : Props) => {
 
   const {
     id, name, base_points, photos,
-    categories, description, end_datetime,
+    categories, description,
     start_datetime, location, final_points,
     organization_name
   } = event
-
-  const eventDetailUrl = `/event/${id}`
 
   return (
     <div className="w-[700px] h-full bg-white border border-gray-200 rounded-lg shadow-lg flex overflow-hidden">
@@ -78,7 +76,7 @@ const EventCardBig = ({ event, message } : Props) => {
         <div className="text-sm text-gray-700 mb-4">
           <strong>Event Description:</strong>
           <br />
-          <p className="line-clamp-4">{description}{description}{description}</p>
+          <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description as string) }}/>
         </div>
         <div className="flex gap-3 justify-end">
           <button
