@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = params.id
+    const { id } = params
     const event = await Event.findOne({
         attributes: {
             exclude: ['createdAt', 'updatedAt']
@@ -84,6 +84,13 @@ export async function GET(
       limit: 3
     })
 
+    const finalOtherEvents = other_events.map((event) => {
+      const tempEvent = event.get({ plain: true })
+      const temp = { ...tempEvent, photos: [{ img_url: tempEvent?.EventImages?.[0]?.img_url }] }
+      delete temp?.EventImages
+      return temp
+    })
+
     const finalized = {
         ...plainEvent,
         organization: { ...(plainDetailedOrganization?.Organization) },
@@ -94,7 +101,8 @@ export async function GET(
             is_verified: participant.is_verified
         })) ?? [],
         event_categories: plainEvent?.CategorizedEvents?.map((category: any) => category.EventCategory) ?? [],
-        other_events
+        other_events: finalOtherEvents
+        // other_events
     }
 
     delete finalized.EventImages;

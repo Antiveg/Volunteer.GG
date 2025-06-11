@@ -1,7 +1,6 @@
 // app/event-progress/page.tsx
 "use client"
 import { ErrorBox, FileUploadUI, LoadingBox } from '@/components';
-import { Label } from '@/components/ui/label';
 import { useEventProgress } from '@/hooks/useEventProgress';
 import { useSessionRedirect } from '@/hooks/useSessionRedirect';
 import { useParams, useRouter } from 'next/navigation';
@@ -61,11 +60,12 @@ const EventProgressPage = () => {
       }
 
       const formData = new FormData();
-      formData.append('file', files[0]); // File from FileUploadUI
+      formData.append('file', files[0]);
       formData.append('event_id', eventInfo?.id)
+      formData.append('user_id', String(session?.user.id))
 
       try {
-        const res = await fetch('/api/event-participant/upload-proof', {
+        const res = await fetch('/api/event-participant/proof', {
           method: 'POST',
           body: formData,
         });
@@ -108,7 +108,6 @@ const EventProgressPage = () => {
         }
 
         alert('Event finalized and points granted to verified participants!');
-        // optionally refetch data
         router.push('/events')
       } catch (err) {
         console.error(err);

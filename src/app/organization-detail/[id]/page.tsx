@@ -3,13 +3,17 @@
 import DOMPurify from 'dompurify'
 import { FaTwitter, FaDiscord, FaPhone, FaInstagram, FaGlobe, FaCalendar, FaLocationArrow } from 'react-icons/fa';
 import { useState } from "react";
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { ErrorBox, Footer, FriendList, LoadingBox } from "@/components";
 import { useDetailedOrganizationByID } from "@/hooks/useDetailedOrganizationByID";
 import { ImageCarousel, EventCardSmall } from "@/components";
 import { events_api_result } from "@/dummies/dummy_data_frontend";
+import { useSession } from 'next-auth/react';
 
 const OrganizationDetailPage = () => {
+
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const [isJoined, setIsJoined] = useState(false);
   const params = useParams(); // returns { id: string }
@@ -193,7 +197,14 @@ const OrganizationDetailPage = () => {
             <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition">
              Follow Organization
             </button>
-            <button className="w-full py-3 bg-gray-400 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition">
+            <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition"
+              onClick={() => {
+                if(session){
+                  router.push('/chat/1')
+                }else{
+                  router.push('/auth/signin')
+                }
+              }}>
               Contact Organization
             </button>
             <button className="w-full py-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition">

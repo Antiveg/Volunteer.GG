@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Event, EventParticipant, User } from '@/db/models';
+import { Event, EventParticipant, User, UserHistory } from '@/db/models';
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,6 +24,17 @@ export async function POST(req: NextRequest) {
             await user.increment('total_points', { by: points });
             await user.increment('usable_points', { by: points });
             await user.increment('monthly_points', { by: points });
+            const event = await Event.findOne({
+              attributes: ['final_points','name'],
+              where: { id: event_id }
+            })
+            await UserHistory.create({
+              point_change: event?.get('final_points'),
+              user_id: user.get('id'),
+              content: `Has joined event ${event?.get('name')}!`,
+              history_origin: "event",
+              event_id: event_id
+            })
         }
     }
 

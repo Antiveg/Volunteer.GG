@@ -6,7 +6,7 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: { uid: string } }
 ) {
-  const uid = Number(params?.uid)
+  const { uid } = await params
   const events = await Event.findAll({
     attributes: { exclude: ['createdAt', 'updatedAt'] },
     include: [

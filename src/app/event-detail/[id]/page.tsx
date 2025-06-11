@@ -1,18 +1,22 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from "react";
-import { useParams } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from 'next/navigation';
 import { ErrorBox, Footer, LoadingBox } from "@/components";
 import { useDetailedEventByID } from "@/hooks/useDetailedEventByID";
 import { ImageCarousel, EventCardSmall } from "@/components";
 import DOMPurify from 'dompurify'
 import { events_api_result } from "@/dummies/dummy_data_frontend";
+import { useSession } from 'next-auth/react';
 
 const EventDetailPage = () => {
-
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [isJoined, setIsJoined] = useState(false);
-  const params = useParams(); // returns { id: string }
+  const [checkingJoinStatus, setCheckingJoinStatus] = useState(true);
+
+  const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const { 
@@ -20,27 +24,64 @@ const EventDetailPage = () => {
     isLoading, 
     isError, 
     error 
-  } = useDetailedEventByID(id)
+  } = useDetailedEventByID(id);
 
-  const renderStars = (rating : number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<span key={i} className={i <= rating ? "text-yellow-400" : "text-gray-300"}>★</span>);
+  useEffect(() => {
+    const checkJoinStatus = async () => {
+      try {
+        setCheckingJoinStatus(true)
+        if (session?.user?.id && id){
+          const res = await fetch(`/api/event/check-join?event_id=${id}&user_id=${session?.user.id}`);
+          const data = await res.json();
+          setIsJoined(data.joined);
+        }
+      } catch (e) {
+        console.error('Failed to check join status:', e);
+      } finally {
+        setCheckingJoinStatus(false);
+      }
+    };
+    checkJoinStatus();
+  }, [session, id, status]);
+
+  const handleJoinClick = async () => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin');
+      return;
     }
-    return stars;
+
+    if (!session?.user?.id) return;
+
+    if (isJoined) {
+      router.push(`/event-progress/${id}`);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/event/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_id: id, user_id: session.user.id })
+      });
+
+      if (!res.ok) throw new Error('Failed to join event');
+
+      setIsJoined(true);
+      router.push(`/event-progress/${id}`);
+    } catch (err) {
+      console.error(err);
+      alert('Error joining the event.');
+    }
   };
 
-  const handleJoinClick = () => {
-    setIsJoined(true);
+  if (isLoading) return <LoadingBox message={`Fetching event ${id} details...`} />;
+  if (isError) return <ErrorBox error={error as any} />;
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className={i + 1 <= rating ? 'text-yellow-400' : 'text-gray-300'}>★</span>
+    ));
   };
-
-  if(isLoading){
-    return <LoadingBox message={`Fetching event ${id} details...`}/>
-  }
-
-  if(isError){
-    return <ErrorBox error={error as any}/>
-  }
 
   return (
     <div className="flex flex-col w-full h-auto gap-4">
@@ -164,26 +205,23 @@ const EventDetailPage = () => {
               </p>
             </div>
 
-            {isJoined ? (
-              <button
-                disabled
-                className="w-full py-3 bg-amber-400 text-gray-900 font-bold rounded-md cursor-not-allowed"
-              >
-                Registration confirmed. Please arrive on time.
-              </button>
-            ) : (
-              <button
-                onClick={handleJoinClick}
-                className="w-full py-3 bg-amber-400 text-gray-900 font-bold rounded-md hover:bg-amber-500 transition"
-              >
-                JOIN HERE
-              </button>
-            )}
-            <Link href="/chat/demo" passHref>
-              <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition">
-                Contact Organization
-              </button>
-            </Link>
+            <button
+              onClick={handleJoinClick}
+              disabled={checkingJoinStatus}
+              className="w-full py-3 bg-amber-400 text-gray-900 font-bold rounded-md hover:bg-amber-500 transition"
+            >
+              {checkingJoinStatus ? 'Checking...' : (status === 'authenticated' && isJoined ? 'Go to Progress' : 'JOIN HERE')}
+            </button>
+            <button className="w-full py-3 bg-gray-300 text-gray-900 font-bold rounded-md hover:bg-gray-400 transition"
+              onClick={() => {
+                if(session){
+                  router.push('/chat/1')
+                }else{
+                  router.push('/auth/signin')
+                }
+              }}>
+              Contact Organization
+            </button>
             <button className="w-full py-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition">
               Report This Event
             </button>

@@ -4,7 +4,7 @@ import { ItemAttributes } from "@/types";
 import { AnimatePresence, motion } from "motion/react";
 
 import { useState } from "react";
-import { Button } from "./button";
+import Buttons from "../Buttons";
 
 export const HoverEffect = ({
   items,
@@ -53,11 +53,9 @@ export const HoverEffect = ({
             className="w-full max-h-32 object-cover rounded-md" />
             <CardTitle className="text-center">{item?.name}</CardTitle>
             <CardDescription  className="my-3 text-center line-clamp-3 min-h-[4.5em]">
-              <b>{item?.type?.charAt(0).toUpperCase() + item?.type.slice(1)}.</b> {item?.description}</CardDescription>
-            <div className="w-full h-auto flex flex-row gap-4">
-              {item?.money_price && <Button variant="outline" className="w-full">Rp. {item?.money_price}</Button>}
-              {item?.point_price && <Button variant="outline" className="w-full">{item?.point_price} Pts</Button>}
-            </div>
+              <b>{item?.type?.charAt(0).toUpperCase() + item?.type.slice(1)}.</b> {item?.description}
+            </CardDescription>
+            <Buttons money={item?.money_price} point={item?.point_price} item_id={item?.id}/>
           </Card>
         </div>
       ))}

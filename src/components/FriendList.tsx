@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { UserAttributes } from "@/types";
 import { Button } from "./ui/button";
+import { useRouter } from 'next/navigation'
 
 export function FriendList({ users } : { users: (UserAttributes & { is_friend?: boolean })[] }) {
   const [active, setActive] = useState<any>(
@@ -12,6 +13,7 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
   );
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
+  const router = useRouter()
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -112,6 +114,7 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
                 </div>
                 <div className="flex justify-end p-4">
                     <Button variant="default" className="ml-auto rounded-lg">ADD FRIEND</Button>
+                    <Button variant="default" onClick={() => router.push(`/chat/${active.id}`)} className="ml-4 rounded-lg">CHAT</Button>
                 </div>
                 {/* <div className="pt-4 relative px-4">
                   <motion.div
@@ -164,12 +167,14 @@ export function FriendList({ users } : { users: (UserAttributes & { is_friend?: 
                 </motion.p>
               </div>
             </div>
-            <motion.button
-              layoutId={`button-${user.name}-${id}`}
-              className="ml-4 px-4 py-2 rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black mt-4 md:mt-0 text-sm"
-            >
-              ADD
-            </motion.button>
+            <div className="flex flex-row">
+              <motion.button
+                layoutId={`button-${user.name}-${id}`}
+                className="ml-4 px-4 py-2 rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black mt-4 md:mt-0 text-sm"
+              >
+                ADD
+              </motion.button>
+            </div>
           </motion.div>
         ))}
       </ul>

@@ -1,31 +1,36 @@
-import { NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import path from 'path';
+import { NextResponse, NextRequest } from 'next/server';
 import { EventParticipant } from '@/db/models';
 import { parseForm } from '@/lib/uploadService';
+import { Readable } from 'stream';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
-export const config = {
-  api: {
-    bodyParser: false, // required for file upload
-  },
-};
+export async function POST(req: NextRequest) {
 
-export async function POST(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
+  }
+
+  const body = await req.arrayBuffer();
+  const stream = Readable.from(Buffer.from(body));
+
+  // Attach headers because formidable needs them
+  // @ts-ignore
+  stream.headers = Object.fromEntries(req.headers.entries());
+
   try {
-    const { fields, files } = await parseForm(req);
-    const { event_id, user_id } = fields;
-    const file = files.file;
+    const { fields, files } = await parseForm(stream); // issue
 
-    if (!file || Array.isArray(file)) {
+    const { event_id, user_id } = fields;
+    const file = files?.file[0];
+
+    if (!file) {
       return NextResponse.json({ error: 'Invalid file' }, { status: 400 });
     }
 
-    const buffer = await file.toBuffer();
-    const fileName = `${Date.now()}-${file.originalFilename}`;
-    const filePath = path.join(process.cwd(), 'public', 'uploads', fileName);
-
-    await writeFile(filePath, buffer);
-    const fileUrl = `/uploads/${fileName}`;
+    const filename = file.newFilename || file.originalFilename || file.filepath.split('/').pop()
+    const fileUrl = `/uploads/${filename}`;
 
     await EventParticipant.update(
       { proof_url: fileUrl },
