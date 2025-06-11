@@ -18,7 +18,6 @@ import Image from "next/image";
 export default function CustomizedNavbar(){
 
   const { status } = useSession()
-  // const status = "authenticated"
 
   const router = useRouter();
   const navItems = [

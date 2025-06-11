@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 
 export default function Shop() {
 
-  const { data : session, status } = useSession()
+  const { data : session } = useSession()
 
   const {
     data: items,

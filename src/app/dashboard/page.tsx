@@ -1,5 +1,5 @@
 "use client"
-import { ErrorBox, EventCardSmall, Footer, LoadingBox } from "@/components";
+import { ErrorBox, Footer, LoadingBox } from "@/components";
 import EventsGrid from "@/components/EventsGrid";
 import { useSessionRedirect } from "@/hooks/useSessionRedirect";
 import { useUserEvents } from "@/hooks/useUserEvents";
@@ -17,7 +17,7 @@ const Dashboard = () => {
     } = useUserEvents(Number(session?.user?.id))
 
     if (status === "loading" || isLoading) {
-        return <LoadingBox message="Loading..."/>// Or a spinner
+        return <LoadingBox message="Loading..."/>
     }
 
     if (!session) {

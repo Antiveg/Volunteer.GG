@@ -1,28 +1,27 @@
-import { NextResponse, userAgent } from 'next/server';
+import { NextResponse } from 'next/server'
 import { Item, User, UserHistory, UserPurchase } from "@/db/models"
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 
-export async function POST(req: Request) {
+export async function POST(req: Request){
   try {
 
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions)
     if (!session) {
-        return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
+        return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 })
     }
 
     const { type, amount, item_id } = await req.json();
 
-    // Ensure valid data
-    if (!type || !amount) {
-      return NextResponse.json({ error: "Missing purchase details" }, { status: 400 });
+    if(!type || !amount){
+      return NextResponse.json({ error: "Missing purchase details" }, { status: 400 })
     }
 
-    if (type === "point" && session.user.usable_points < amount) {
-      return NextResponse.json({ error: "Insufficient points" }, { status: 400 });
+    if(type === "point" && session.user.usable_points < amount){
+      return NextResponse.json({ error: "Insufficient points" }, { status: 400 })
     }
 
-    if (type === "money") {
+    if(type === "money"){
         const item = await Item.findOne({
             attributes: ['money_price'],
             where: {
@@ -42,7 +41,7 @@ export async function POST(req: Request) {
             history_origin: "Purchase",
             purchase_id: purchase.get('id'),
         })
-    } else if (type === "point") {
+    }else if(type === "point"){
         const item = await Item.findOne({
             attributes: ['point_price'],
             where: {
@@ -66,9 +65,8 @@ export async function POST(req: Request) {
         })
     }
 
-    return NextResponse.json({ success: true, message: `${amount} ${type} purchased` });
+    return NextResponse.json({ success: true, message: `${amount} ${type} purchased` })
   } catch (error) {
-    console.error("Purchase error:", error);
-    return NextResponse.json({ error: "Failed to complete purchase" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to complete purchase" }, { status: 500 })
   }
 }

@@ -52,7 +52,6 @@ const OrganizationCreateForm = () => {
     formPayload.append("description", descriptionHtml);
     formPayload.append("logo_url", logoUrl as Blob)
 
-    // Append optional fields if they are not empty
     if (formData.active_time) formPayload.append("active_time", formData.active_time);
     if (formData.location) formPayload.append("location", formData.location);
     if (formData.phone) formPayload.append("phone", formData.phone);
@@ -87,7 +86,7 @@ const OrganizationCreateForm = () => {
           <hr className="my-4" />
 
           <div className="flex flex-row flex-1">
-            {/* Left Side - Required Fields */}
+
             <div className="flex flex-col max-w-xs w-full justify-between">
               <LabelInputContainer className="relative mb-4">
                 <Label htmlFor="name">Organization Name*</Label>

@@ -15,7 +15,6 @@ const EventProgressPage = () => {
 
     const params = useParams()
     const id = Array.isArray(params.id) ? params.id[0] : params.id
-    console.log(id)
     const { data: eventInfo, isLoading, isError, error } = useEventProgress(Number(id))
 
     const [isJoined, setIsJoined] = useState(false)
@@ -44,9 +43,8 @@ const EventProgressPage = () => {
           }),
         });
 
-        // Optional: update UI manually without re-fetching
         participant.is_verified = newValue ? 'verified' : 'unverified';
-        setIsJoined((prev) => !prev); // trigger rerender
+        setIsJoined((prev) => !prev)
       } catch (err) {
         console.error('Verification update failed:', err);
         alert('Failed to update verification status.');
@@ -118,7 +116,7 @@ const EventProgressPage = () => {
   return (
     <div className="mx-auto p-4 h-full">
       <div className="flex flex-col md:flex-row gap-8 h-full">
-        {/* Left: Event Info */}
+
         <div className="md:w-1/2 space-y-2">
           <h2 className="text-2xl font-bold">{eventInfo?.name}</h2>
           <p><span className="font-semibold">Location:</span> {eventInfo?.location}</p>
@@ -143,7 +141,7 @@ const EventProgressPage = () => {
 
         <div className="w-[1px] bg-gray-200 mx-4"/>
 
-        {/* Right: Participants List */}
+
         <div className="md:w-1/2">
           <h3 className="text-xl font-semibold mb-2">Participants</h3>
           <ul className="space-y-3">

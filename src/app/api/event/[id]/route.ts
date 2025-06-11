@@ -1,12 +1,11 @@
-import { NextRequest, NextResponse, userAgent } from 'next/server';
-import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization, OrganizationMember, User } from '@/db/models';
-import { Sequelize } from 'sequelize'
+import { NextRequest, NextResponse } from 'next/server'
+import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization, OrganizationMember, User } from '@/db/models'
 
 export async function GET(
   _req: NextRequest,
   { params }: { params: { id: string } }
-) {
-  try {
+){
+  try{
     const { id } = params
     const event = await Event.findOne({
         attributes: {
@@ -48,8 +47,8 @@ export async function GET(
         (p: any) => p.status === 'leader'
     )?.user_id
 
-    let plainDetailedOrganization = null;
-    if (leaderUserId) {
+    let plainDetailedOrganization = null
+    if(leaderUserId){
       const organization_details = await OrganizationMember.findOne({
         attributes: ['organization_id'],
         include: [
@@ -59,8 +58,8 @@ export async function GET(
           }
         ],
         where: { user_id: leaderUserId }
-      });
-      plainDetailedOrganization = organization_details?.get({ plain: true }) ?? null;
+      })
+      plainDetailedOrganization = organization_details?.get({ plain: true }) ?? null
     }
 
     const other_events = await Event.findAll({
@@ -102,20 +101,19 @@ export async function GET(
         })) ?? [],
         event_categories: plainEvent?.CategorizedEvents?.map((category: any) => category.EventCategory) ?? [],
         other_events: finalOtherEvents
-        // other_events
     }
 
     delete finalized.EventImages;
     delete finalized.EventParticipants;
     delete finalized.CategorizedEvents;
 
-    if (!finalized) {
-      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
+    if(!finalized){
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 })
     }
 
-    return NextResponse.json(finalized);
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(finalized)
+  }catch(err){
+    console.error(err)
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }

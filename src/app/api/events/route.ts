@@ -1,7 +1,6 @@
-import { NextResponse } from 'next/server';
-import { Event, EventImage, CategorizedEvent, EventCategory, Organization, EventParticipant, OrganizationMember } from '@/db/models'
-import { EventCategoryAttributes } from '@/types';
-import { Op } from 'sequelize'
+import { NextResponse } from 'next/server'
+import { Event, EventImage, CategorizedEvent, EventCategory, Organization } from '@/db/models'
+import { EventCategoryAttributes } from '@/types'
 
 interface Props {
   event_id: number
@@ -9,7 +8,7 @@ interface Props {
   EventCategory: EventCategoryAttributes
 }
 
-export async function GET() {
+export async function GET(){
 
   const events = await Event.findAll({
     attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -39,10 +38,10 @@ export async function GET() {
     const eventData = event.toJSON()
     const categories = eventData.CategorizedEvents?.map((categorizedEvent : Props) =>
       categorizedEvent.EventCategory
-    ).filter(Boolean) || [];
+    ).filter(Boolean) || []
     const photos = eventData.EventImages || []
 
-    const organization_name = eventData?.Organization?.name || null;
+    const organization_name = eventData?.Organization?.name || null
 
     return {
       ...eventData,
@@ -54,5 +53,5 @@ export async function GET() {
     }
   })
 
-  return NextResponse.json(flattenedEvents);
+  return NextResponse.json(flattenedEvents)
 }

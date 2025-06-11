@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
 import { User } from '@/db/models'
 
 export async function GET() {
@@ -9,5 +9,5 @@ export async function GET() {
     },
   })
 
-  return NextResponse.json(users);
+  return NextResponse.json(users)
 }

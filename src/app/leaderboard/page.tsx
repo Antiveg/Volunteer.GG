@@ -23,7 +23,7 @@ export default function Leaderboard() {
 
   return (
     <div className="h-full flex flex-col mx-48 mb-10 justify-center relative">
-        {/* <LeaderboardAreaSelector /> */}
+
         <div className="ml-auto flex flex-row top-0 right-0 bg-orange-100 rounded-full">
           
           <div className="cursor-pointer px-6 py-1 text-gray-800 font-sans text-base rounded-full transition-colors duration-300 hover:bg-[#ffe0cc] hover:text-black">
@@ -40,7 +40,6 @@ export default function Leaderboard() {
           </div>
         </div>
 
-        {/* <LeaderboardTopThree /> */}
         <div className="w-full h-auto flex justify-center gap-4 my-4">
           <div 
           className="border-white border flex justify-end rounded-lg items-end font-sans flex-col items-center w-auto py-6 px-12 mt-8 bg-gray-200 shadow-lg">
@@ -62,7 +61,6 @@ export default function Leaderboard() {
           </div>
         </div>
 
-        {/* <LeaderboardRankings/> */}
         <div className="w-full flex flex-grow flex-col min-h-48 h-full gap-2 overflow-scroll p-2">
           {users && users.slice(3).map((user : UserAttributes, index : number) => (
             <div key={index} className="flex items-center p-3 rounded-lg transition-colors duration-200 bg-orange-100 shadow-md">

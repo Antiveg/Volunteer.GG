@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
 import { EventCategory } from '@/db/models'
-// import { EventCategoryAttributes } from '@/types';
 
 export async function GET() {
 

@@ -11,10 +11,9 @@ const EventCarousel = ({ events } : Props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Define layout constants
-  const MAIN_CARD_WIDTH = 700; // width of EventCardBig in pixels
-  const PEEK_WIDTH = 30; // How much of the adjacent cards is visible on each side (pixels)
-  const SLIDE_MARGIN = 20; // Margin between cards in the track (pixels)
+  const MAIN_CARD_WIDTH = 700;
+  const PEEK_WIDTH = 30;
+  const SLIDE_MARGIN = 20
 
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
@@ -32,7 +31,6 @@ const EventCarousel = ({ events } : Props) => {
     return <div className="text-center text-gray-500 py-5">No events to display.</div>;
   }
 
-  // Calculate the translateX value for the track
   const offset = currentIndex * (MAIN_CARD_WIDTH + SLIDE_MARGIN)
   const transformValue = `translateX(calc(-${offset}px + ${PEEK_WIDTH}px))`
 
@@ -44,7 +42,7 @@ const EventCarousel = ({ events } : Props) => {
           className="absolute h-full left-0 p-2 w-8 bg-gray-200/25 hover:bg-gray-300/75 text-gray-800 z-50"
           aria-label="Previous event"
         >
-          &#10094; {/* Left Arrow */}
+          &#10094;
         </button>
       )}
       <div className="overflow-hidden h-full relative">
@@ -74,7 +72,7 @@ const EventCarousel = ({ events } : Props) => {
           className="absolute h-full right-0 p-2 w-8 bg-gray-200/25 hover:bg-gray-300/75 text-gray-800 z-50"
           aria-label="Previous event"
         >
-          &#10095; {/* Right Arrow */}
+          &#10095;
         </button>
       )}
     </div>

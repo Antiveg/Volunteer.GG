@@ -59,9 +59,8 @@ const EventCreateForm = () => {
     formPayload.append("base_points", String(formData.base_points));
     formPayload.append("category", String(formData.category));
 
-    // Append each event image
     files.forEach((file) => {
-      formPayload.append("event_images", file); // Assuming backend accepts `event_images[]`
+      formPayload.append("event_images", file);
     });
 
     try {
@@ -215,7 +214,6 @@ const EventCreateForm = () => {
 
           <p className="my-2 text-red-500 text-center">{formError ?? "\u00A0"}</p>
 
-          {/* Submit Button */}
           <Button type="submit" className="w-full bg-blue-600 text-white">Create Event</Button>
         </form>
       </div>
@@ -238,92 +236,4 @@ const LabelInputContainer = ({
   );
 };
 
-export default EventCreateForm;
-
-
-          // <div className="bg-green-100 max-w-xs w-full">
-          //   {/* Event Name */}
-          //   <div className="mb-4">
-          //     <Label htmlFor="name">Event Name</Label>
-          //     <Input
-          //       id="name"
-          //       name="name"
-          //       type="text"
-          //       value={formData.name}
-          //       onChange={handleChange}
-          //       className={cn(errors.name && "border-red-500")}
-          //     />
-          //     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-          //   </div>
-
-          //   {/* Location */}
-          //   <div className="mb-4">
-          //     <Label htmlFor="location">Location</Label>
-          //     <Input
-          //       id="location"
-          //       name="location"
-          //       type="text"
-          //       value={formData.location}
-          //       onChange={handleChange}
-          //       className={cn(errors.location && "border-red-500")}
-          //     />
-          //     {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
-          //   </div>
-
-          //   {/* Start Date and Time */}
-          //   <div className="mb-4">
-          //     <Label htmlFor="start_datetime">Start Date and Time</Label>
-          //     <Input
-          //       id="start_datetime"
-          //       name="start_datetime"
-          //       type="datetime-local"
-          //       value={formData.start_datetime}
-          //       onChange={handleChange}
-          //       className={cn(errors.start_datetime && "border-red-500")}
-          //     />
-          //     {errors.start_datetime && <p className="text-red-500 text-sm">{errors.start_datetime}</p>}
-          //   </div>
-
-          //   {/* End Date and Time */}
-          //   <div className="mb-4">
-          //     <Label htmlFor="end_datetime">End Date and Time</Label>
-          //     <Input
-          //       id="end_datetime"
-          //       name="end_datetime"
-          //       type="datetime-local"
-          //       value={formData.end_datetime}
-          //       onChange={handleChange}
-          //       className={cn(errors.end_datetime && "border-red-500")}
-          //     />
-          //     {errors.end_datetime && <p className="text-red-500 text-sm">{errors.end_datetime}</p>}
-          //   </div>
-
-          //   {/* Base Points */}
-          //   <div className="mb-4">
-          //     <Label htmlFor="base_points">Base Points</Label>
-          //     <Input
-          //       id="base_points"
-          //       name="base_points"
-          //       type="number"
-          //       value={formData.base_points}
-          //       onChange={handleChange}
-          //       className={cn(errors.base_points && "border-red-500")}
-          //     />
-          //     {errors.base_points && <p className="text-red-500 text-sm">{errors.base_points}</p>}
-          //   </div>
-
-          //   {/* Categories */}
-          //   <div className="">
-          //     <Label htmlFor="categories">Categories</Label>
-          //     <Input
-          //       id="categories"
-          //       name="categories"
-          //       type="text"
-          //       value={formData.categories.join(", ")}
-          //       onChange={handleCategoryChange}
-          //       placeholder="Enter categories, separated by commas"
-          //       className={cn(errors.categories && "border-red-500")}
-          //     />
-          //     {errors.categories && <p className="text-red-500 text-sm">{errors.categories}</p>}
-          //   </div>
-          // </div>
+export default EventCreateForm

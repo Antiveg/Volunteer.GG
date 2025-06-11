@@ -3,7 +3,7 @@ import { ErrorBox, Footer, FriendList, LoadingBox } from '@/components';
 import { useProfile } from '@/hooks/useProfile';
 import { useSessionRedirect } from '@/hooks/useSessionRedirect';
 import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaGift, FaHandsHelping, FaHistory, FaMedal, FaTrophy, FaUser } from 'react-icons/fa';
 
 const Profile = () =>  {

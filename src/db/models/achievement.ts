@@ -3,7 +3,6 @@ import sequelize from '@/db/sequelize';
 
 class Achievement extends Model {
   static associate(models: any) {
-    // Achievement -> userachievement (one-to-many)
     Achievement.hasMany(models.UserAchievement, { foreignKey: 'achievement_id' });
   }
 }

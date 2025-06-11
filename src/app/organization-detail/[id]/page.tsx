@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
 import { ErrorBox, Footer, FriendList, LoadingBox } from "@/components";
 import { useDetailedOrganizationByID } from "@/hooks/useDetailedOrganizationByID";
-import { ImageCarousel, EventCardSmall } from "@/components";
-import { events_api_result } from "@/dummies/dummy_data_frontend";
+import { ImageCarousel, EventCardSmall } from "@/components"
 import { useSession } from 'next-auth/react';
 
 const OrganizationDetailPage = () => {
@@ -15,8 +14,7 @@ const OrganizationDetailPage = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
-  const [isJoined, setIsJoined] = useState(false);
-  const params = useParams(); // returns { id: string }
+  const params = useParams()
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const { 
@@ -32,10 +30,6 @@ const OrganizationDetailPage = () => {
       stars.push(<span key={i} className={i <= rating ? "text-yellow-400" : "text-gray-300"}>★</span>);
     }
     return stars;
-  };
-
-  const handleJoinClick = () => {
-    setIsJoined(true);
   }
 
   if(isLoading){
@@ -125,7 +119,6 @@ const OrganizationDetailPage = () => {
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className=" relative flex-1">
           <div className="w-full p-5 rounded-lg shadow max-h-fit flex flex-col gap-3 bg-white lg:sticky lg:top-24">
             

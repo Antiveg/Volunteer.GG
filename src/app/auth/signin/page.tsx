@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-// import {
-//   IconBrandGoogle,
-// } from "@tabler/icons-react"
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
@@ -20,20 +17,16 @@ export default function Signin() {
     const email = formData.get("email")?.toString() || "";
     const password = formData.get("password")?.toString() || "";
 
-    // Use NextAuth's signIn method, with credentials provider:
     const result = await signIn("credentials", {
-      redirect: false,  // prevent redirect, handle manually
+      redirect: false,
       email,
       password,
     })
 
     if (result?.error) {
-      // handle error here, show message
       setError("Invalid email or password. Try again!")
-      // console.error("Failed to sign in:", result.error);
     } else {
-      // success: optionally redirect or do something else
-      window.location.href = "/dashboard"; // or any page you want to redirect to
+      window.location.href = "/dashboard"
     }
   }
 
@@ -72,18 +65,6 @@ export default function Signin() {
           </button>
           <p className="text-red-500 text-sm text-center">{error || '\u00A0'}</p>
           <div className="my-6 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-          {/* <div className="flex flex-col space-y-4">
-            <button
-              className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="submit"
-            >
-              <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Google
-              </span>
-              <BottomGradient />
-            </button>
-          </div> */}
         </form>
       </div>
     </div>
@@ -96,8 +77,8 @@ const BottomGradient = () => {
       <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
       <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
     </>
-  );
-};
+  )
+}
 
 const LabelInputContainer = ({
   children,
@@ -110,5 +91,5 @@ const LabelInputContainer = ({
     <div className={cn("flex w-full flex-col space-y-2", className)}>
       {children}
     </div>
-  );
-};
+  )
+}

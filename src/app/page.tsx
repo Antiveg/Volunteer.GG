@@ -15,5 +15,4 @@ export default function Home() {
   else if(status === "authenticated"){
     redirect('/dashboard')
   }
-  // kalau ada waktu isi jd hero landing page
 }

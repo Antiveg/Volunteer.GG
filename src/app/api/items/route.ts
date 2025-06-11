@@ -1,12 +1,11 @@
-import { NextResponse } from 'next/server';
-import Item from '@/db/models/item';
+import { NextResponse } from 'next/server'
+import Item from '@/db/models/item'
 
-export async function GET() {
-  try {
-    const items = await Item.findAll();
-    return NextResponse.json(items);
-  } catch (error) {
-    console.error('Failed to fetch items:', error);
-    return NextResponse.json({ error: 'Failed to fetch items' }, { status: 500 });
+export async function GET(){
+  try{
+    const items = await Item.findAll()
+    return NextResponse.json(items)
+  }catch(error){
+    return NextResponse.json({ error: 'Failed to fetch items' }, { status: 500 })
   }
 }

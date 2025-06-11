@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization, OrganizationImage, OrganizationMember, User } from '@/db/models';
+import { NextRequest, NextResponse } from 'next/server'
+import { CategorizedEvent, Event, EventCategory, EventImage, Organization, OrganizationImage, OrganizationMember, User } from '@/db/models'
 
 export async function GET(
   _req: NextRequest,
   { params }: { params: { id: string } }
-) {
-  try {
+){
+  try{
     const organization = await Organization.findByPk(params?.id, {
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
@@ -29,9 +29,6 @@ export async function GET(
     })
 
     const plainOrganization = organization?.get({ plain: true })
-    const members = plainOrganization?.OrganizationMembers || [];
-
-    const memberUserIds = members.map((member : any) => member.user_id)
 
     const events = await Event.findAll({
       attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -62,10 +59,10 @@ export async function GET(
       const eventData = event.toJSON()
       const categories = eventData.CategorizedEvents?.map((categorizedEvent : any) =>
         categorizedEvent.EventCategory
-      ).filter(Boolean) || [];
+      ).filter(Boolean) || []
       const photos = eventData.EventImages || []
   
-      const organization_name = eventData.EventParticipants?.[0]?.OrganizationMembers?.Organization?.name || null;
+      const organization_name = eventData.EventParticipants?.[0]?.OrganizationMembers?.Organization?.name || null
   
       return {
         ...eventData,
@@ -92,13 +89,12 @@ export async function GET(
     plainOrganization.organization_images = plainOrganization.OrganizationImages
     delete plainOrganization.OrganizationImages
 
-    if (!plainOrganization) {
-      return NextResponse.json({ error: 'Organization not found' }, { status: 404 });
+    if(!plainOrganization){
+      return NextResponse.json({ error: 'Organization not found' }, { status: 404 })
     }
 
-    return NextResponse.json(plainOrganization);
-  } catch (error) {
-    console.error('API error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(plainOrganization)
+  }catch(error){
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }

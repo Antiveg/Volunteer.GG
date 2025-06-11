@@ -12,17 +12,14 @@ export async function GET(
   const { receipient_id } = await params
 
   const session = await getServerSession(authOptions);
-  if (!session) {
+  if(!session){
     return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
   }
 
-  const senderId = parseInt(session.user.id);
-  const receipientId = parseInt(receipient_id);
+  const senderId = parseInt(session.user.id)
+  const receipientId = parseInt(receipient_id)
 
-  console.log(senderId)
-  console.log(receipientId)
-
-  try {
+  try{
     const messages = await Chat.findAll({
         where: {
             [Op.or]: [
@@ -31,12 +28,10 @@ export async function GET(
             ]
         },
         order: [['createdAt', 'ASC']],
-    });
-
-    console.log(messages)
+    })
 
     return NextResponse.json(messages);
-  } catch (error) {
+  }catch(error){
     return NextResponse.json({ error: 'Failed to load chat messages' }, { status: 500 });
   }
 }

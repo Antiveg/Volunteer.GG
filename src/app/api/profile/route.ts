@@ -1,19 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Achievement, Event, Item, Organization, OrganizationMember, User, UserAchievement, UserCertificate, UserHistory, UserPurchase, UserRelation } from '@/db/models';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server'
+import { Achievement, Event, Item, Organization, OrganizationMember, User, UserAchievement, UserCertificate, UserHistory, UserPurchase, UserRelation } from '@/db/models'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 
-export async function GET(_req: NextRequest) {
+export async function GET(_req: NextRequest){
 
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions)
     if (!session) {
-        return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
+        return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 })
     }
 
     try {
-
         const uid = session.user.id
-        // const uid = 1
 
         const user = await User.findOne({
             where: { id: uid},
@@ -58,7 +56,7 @@ export async function GET(_req: NextRequest) {
                     required: false,
                 }
             ]
-        });
+        })
         const achievements_withstatus = achievements.map(achievement => ({
             ...achievement.toJSON(),
             is_achieved: (achievement as any)?.UserAchievements?.length > 0,
@@ -74,23 +72,20 @@ export async function GET(_req: NextRequest) {
             include: [
                 {
                     model: User,
-                    as: 'friend', // Ensure you're using the correct alias
+                    as: 'friend',
                     attributes: { exclude: ['createdAt', 'updatedAt'] }
                 }
             ],
             where: { user_id: uid }
-        });
+        })
 
-        // Convert to plain objects
-        const temp = friends.map(friend => friend.get({ plain: true }));
-
-        // Flatten the data by destructuring friend and relation
+        const temp = friends.map(friend => friend.get({ plain: true }))
         const friendList = temp.map(({ friend, ...relation }) => {
             return {
-                ...relation, // Spread the relation data (UserRelation attributes)
-                ...friend // Spread the friend's user data
-            };
-        });
+                ...relation,
+                ...friend
+            }
+        })
 
         const combined = {
             user,
@@ -102,7 +97,6 @@ export async function GET(_req: NextRequest) {
 
         return NextResponse.json(combined);
     } catch (error) {
-        console.error('Error fetching users:', error);
         return NextResponse.json(
             { message: 'An error occurred while fetching users' },
             { status: 500 }

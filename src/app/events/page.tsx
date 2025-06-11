@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { ErrorBox, EventCarousel, SearchBar, EventCardSmall, Footer, LoadingBox, /* EventFilterBox */ } from '@/components'
-import { events_api_result } from '../../dummies/dummy_data_frontend'
+import { ErrorBox, EventCarousel, SearchBar, Footer, LoadingBox } from '@/components'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { useEvents } from '@/hooks/useEvents';
 import EventsGrid from '@/components/EventsGrid';
@@ -59,9 +58,6 @@ const Events = () => {
           <EventCarousel events={events} />
         </section>
         <section className="w-full flex flex-row gap-4">
-          {/* <aside className="flex-none w-72">
-            <EventSidebarFilter category={category} setCategories={setCategories} filters={filters} setFilters={setFilters}/>
-          </aside> */}
           <div className="flex-grow flex flex-col gap-6">
             <SearchBar search={search} handleSearch={handleSearch}/>
             {(!events || events.length <= 0) &&

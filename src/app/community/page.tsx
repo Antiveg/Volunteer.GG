@@ -129,7 +129,6 @@ const Community = () => {
           title="People"
           text="Good friends are like stars in the sky — you don't always see them, but you know they're always there in times of need." 
           clicked={() => setSubPage(1)}/>
-          {/* <SubTab logo={ai_logo} text="Evaluation" clicked={() => setSubPage(3)}/> */}
         </div>
       </div>
       <section className="flex flex-col flex-1 mx-20 my-6 min-h-96">

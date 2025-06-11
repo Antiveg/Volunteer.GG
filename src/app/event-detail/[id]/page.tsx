@@ -1,13 +1,11 @@
 "use client";
 
-import Link from 'next/link';
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
 import { ErrorBox, Footer, LoadingBox } from "@/components";
 import { useDetailedEventByID } from "@/hooks/useDetailedEventByID";
 import { ImageCarousel, EventCardSmall } from "@/components";
 import DOMPurify from 'dompurify'
-import { events_api_result } from "@/dummies/dummy_data_frontend";
 import { useSession } from 'next-auth/react';
 
 const EventDetailPage = () => {
@@ -86,9 +84,9 @@ const EventDetailPage = () => {
   return (
     <div className="flex flex-col w-full h-auto gap-4">
       <div className="flex flex-col font-sans text-gray-800 bg-gray-100 gap-4 mx-8 mb-10 p-4 rounded-lg lg:flex-row h-auto">
-        {/* Main content */}
+
         <div className="flex-2 flex flex-col gap-5 lg:w-2/3 w-full">
-          {/* Header Image */}
+
           <ImageCarousel images={(event?.event_images?.length || 0) <= 0 ? [{img_url: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png", id: 0}] : (event?.event_images ?? [])}/>
 
           {event?.organization && Object.keys(event.organization).length > 0 &&
@@ -141,14 +139,11 @@ const EventDetailPage = () => {
             </a>
           </div>}
           
-
-          {/* Descriptions About the Event */}
           <div className="bg-white p-5 rounded-lg shadow">
             <h3 className="text-xl text-blue-900 mb-3"><b>Descriptions About the Event</b></h3>
             <p className="text-gray-600 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.description || "") }}/>
           </div>
 
-          {/* Other Event Section */}
           <div className="bg-white p-5 rounded-lg shadow">
             <h3 className="text-xl text-blue-900 mb-4"><b>Other Events...</b></h3>
             <div className="flex flex-row w-full h-auto gap-4 overflow-x-scroll p-2">
@@ -165,7 +160,6 @@ const EventDetailPage = () => {
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className=" relative flex-1">
           <div className="w-full p-5 rounded-lg shadow max-h-fit flex flex-col gap-3 bg-white lg:sticky lg:top-24">
             <h1 className="text-xl text-blue-900 mb-1"><b>{event?.name}</b></h1>

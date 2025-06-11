@@ -1,46 +1,35 @@
-import { NextRequest } from 'next/server';
-import { parseForm } from '@/lib/uploadService';
-import { Readable } from 'stream';
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { Organization, OrganizationMember } from '@/db/models';
+import { NextRequest } from 'next/server'
+import { parseForm } from '@/lib/uploadService'
+import { Readable } from 'stream'
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/lib/auth"
+import { Organization, OrganizationMember } from '@/db/models'
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest){
 
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
+  if(!session){
+    return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 })
   }
 
-  const body = await req.arrayBuffer();
-  const stream = Readable.from(Buffer.from(body));
-
-  // Attach headers because formidable needs them
+  const body = await req.arrayBuffer()
+  const stream = Readable.from(Buffer.from(body))
   // @ts-ignore
-  stream.headers = Object.fromEntries(req.headers.entries());
+  stream.headers = Object.fromEntries(req.headers.entries())
 
-  try {
-    const { fields, files } = await parseForm(stream);
-
-    console.log(fields)
-    console.log(files)
-
-    // files.event_images could be array or single object depending on upload
+  try{
+    const { fields, files } = await parseForm(stream)
     const logoURL = Array.isArray(files.logo_url)
       ? files.logo_url
-      : [files.logo_url];
+      : [files.logo_url]
 
     let listIMG = [] as string[]
-    // Save each image record with event_id and URL (based on filepath)
     await Promise.all(
         logoURL.map(async (file : any) => {
-            // Extract filename from path — assuming formidable gives you file.filepath
-            // If your formidable version uses file.newFilename, adjust accordingly
             const filename = file.newFilename || file.originalFilename || file.filepath.split('/').pop();
-
             listIMG.push(`/uploads/${filename}`);
         })
-    );
+    )
 
     const newOrganization = await Organization.create({
       name: fields.name[0],
@@ -65,9 +54,8 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ message: "Organization created", fields, files }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("Upload error", error);
-    return new Response("Upload failed", { status: 500 });
+    })
+  }catch(error){
+    return new Response("Upload failed", { status: 500 })
   }
 }

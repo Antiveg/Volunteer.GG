@@ -5,7 +5,7 @@ import { Op } from 'sequelize';
 export async function GET(
   _req: NextRequest,
   { params }: { params: { uid: string } }
-) {
+){
   const { uid } = await params
   const events = await Event.findAll({
     attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -44,7 +44,7 @@ export async function GET(
     ).filter(Boolean) || [];
     const photos = eventData.EventImages || []
 
-    const organization_name = eventData.EventParticipants?.[0]?.organizationMember?.Organization?.name || null;
+    const organization_name = eventData.EventParticipants?.[0]?.organizationMember?.Organization?.name || null
 
     return {
       ...eventData,
@@ -56,5 +56,5 @@ export async function GET(
     }
   })
 
-  return NextResponse.json(flattenedEvents);
+  return NextResponse.json(flattenedEvents)
 }
