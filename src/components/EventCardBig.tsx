@@ -1,5 +1,4 @@
 import React from 'react';
-import { img_temp } from '../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 import { redirect } from 'next/navigation'
 import DOMPurify from 'dompurify'
@@ -36,7 +35,7 @@ const EventCardBig = ({ event, message } : Props) => {
   return (
     <div className="w-[700px] h-full bg-white border border-gray-200 rounded-lg shadow-lg flex overflow-hidden">
       <div className="relative w-2/5 h-full">
-        <img src={photos ? photos[0].img_url : img_temp} alt="no image" className="w-full h-full object-cover" />
+        <img src={photos ? photos[0].img_url : 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'} alt="no image" className="w-full h-full object-cover" />
         {(base_points || final_points) && (
           <div className="absolute top-4 right-4 bg-black text-white py-1 px-2 rounded-full text-xs font-bold flex items-center z-10">
             <span className="mr-2">👁️</span> {final_points ? final_points : base_points}
