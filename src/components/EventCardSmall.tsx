@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import Link from 'next/link'
-import { img_temp } from '../dummies/dummy_data_frontend'
 import { EventAttributes, EventCategoryAttributes, EventImageAttributes } from '@/types'
 
 interface Props {
@@ -31,7 +30,7 @@ const EventCardSmall = ({ event } : Props) => {
         {/* Image container */}
         <div className="relative w-full h-[160px] flex-shrink-0">
           <img
-            src={photos && photos.length > 0 ? photos[0].img_url : img_temp}
+            src={photos && photos.length > 0 ? photos[0].img_url : 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'}
             alt={name}
             className="w-full h-full object-cover block"
           />

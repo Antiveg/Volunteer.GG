@@ -225,5 +225,3 @@ export const events_api_result = [
     "friend_count": 0
   }
 ]
-
-export const img_temp = 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
