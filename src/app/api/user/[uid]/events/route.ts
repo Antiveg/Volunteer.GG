@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization, OrganizationMember } from '@/db/models';
-import { Op } from 'sequelize';
+import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, Organization } from '@/db/models';
 
 export async function GET(
   _req: NextRequest,

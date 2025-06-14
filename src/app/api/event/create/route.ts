@@ -14,7 +14,8 @@ export async function POST(req: NextRequest){
 
   const body = await req.arrayBuffer()
   const stream = Readable.from(Buffer.from(body))
-  // @ts-ignore
+  
+  // @ts-expect-error
   stream.headers = Object.fromEntries(req.headers.entries())
 
   try {

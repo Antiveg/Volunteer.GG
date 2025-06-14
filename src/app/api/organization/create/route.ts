@@ -23,7 +23,7 @@ export async function POST(req: NextRequest){
       ? files.logo_url
       : [files.logo_url]
 
-    let listIMG = [] as string[]
+    const listIMG = [] as string[]
     await Promise.all(
         logoURL.map(async (file : any) => {
             const filename = file.newFilename || file.originalFilename || file.filepath.split('/').pop();
@@ -56,6 +56,7 @@ export async function POST(req: NextRequest){
       headers: { "Content-Type": "application/json" },
     })
   }catch(error){
+    console.error('error:', error);
     return new Response("Upload failed", { status: 500 })
   }
 }

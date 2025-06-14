@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env.local' })
+// require('dotenv').config({ path: '.env.local' })
 
 import { Sequelize } from 'sequelize'
 import config from './config/config'

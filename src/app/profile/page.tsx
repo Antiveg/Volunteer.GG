@@ -16,9 +16,9 @@ const Profile = () =>  {
     const [listidx, setList] = useState(0)
     
     const lists = [
-      <HistoryList history={profileData?.history}/>,
-      <AchievementList achievements={profileData?.achievements} certificates={profileData?.certificates}/>,
-      <AssociateList friends={profileData?.friends}/>,
+      <HistoryList key={1} history={profileData?.history}/>,
+      <AchievementList key={2} achievements={profileData?.achievements} certificates={profileData?.certificates}/>,
+      <AssociateList key={3} friends={profileData?.friends}/>,
     ]
 
     if(status === "unauthenticated"){

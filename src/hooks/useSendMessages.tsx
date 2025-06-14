@@ -1,8 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { insertChat } from '@/lib/api/insertChat';
 
-useQuery
-
 export const useSendMessage = (recipientId: number) => {
   const queryClient = useQueryClient();
 

@@ -2,7 +2,6 @@
 
 import DOMPurify from 'dompurify'
 import { FaTwitter, FaDiscord, FaPhone, FaInstagram, FaGlobe, FaCalendar, FaLocationArrow } from 'react-icons/fa';
-import { useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
 import { ErrorBox, Footer, FriendList, LoadingBox } from "@/components";
 import { useDetailedOrganizationByID } from "@/hooks/useDetailedOrganizationByID";

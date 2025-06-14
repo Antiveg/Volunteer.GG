@@ -63,7 +63,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     event.currentTarget.style.opacity = "1";
   };
 
-  const { img_url, id, button, title } = slide;
+  const { img_url, id } = slide;
 
   return (
     <div className="[transform-style:preserve-3d]">

@@ -83,7 +83,7 @@ export default function Signup() {
             onChange={() => {
               if (errors.name) {
                 setErrors((prev) => {
-                  const { name, ...rest } = prev;
+                  const { name : _unused, ...rest } = prev;
                   return rest;
                 })
               }
@@ -98,7 +98,7 @@ export default function Signup() {
             onChange={() => {
               if (errors.location) {
                 setErrors((prev) => {
-                  const { location, ...rest } = prev;
+                  const { location : _unused, ...rest } = prev;
                   return rest;
                 })
               }
@@ -113,7 +113,7 @@ export default function Signup() {
             onChange={() => {
               if (errors.email) {
                 setErrors((prev) => {
-                  const { email, ...rest } = prev;
+                  const { email : _unused, ...rest } = prev;
                   return rest;
                 })
               }
@@ -128,7 +128,7 @@ export default function Signup() {
             onChange={() => {
               if (errors.password) {
                 setErrors((prev) => {
-                  const { password, ...rest } = prev;
+                  const { password : _unused, ...rest } = prev;
                   return rest;
                 })
               }

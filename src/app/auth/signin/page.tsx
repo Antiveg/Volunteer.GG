@@ -53,7 +53,7 @@ export default function Signin() {
             <Label htmlFor="password">Password</Label>
             <Input id="password" placeholder="••••••••" type="password" name="password" onChange={() => setError(null)}/>
           </LabelInputContainer>
-          <p className="text-sm text-center">Don't have an account? 
+          <p className="text-sm text-center">Don&apos;t have an account? 
             <Link className="text-blue-500" href="/auth/signup"> <u>Sign up here!</u></Link>
           </p>
           <button

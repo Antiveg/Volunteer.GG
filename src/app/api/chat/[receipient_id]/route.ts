@@ -31,7 +31,8 @@ export async function GET(
     })
 
     return NextResponse.json(messages);
-  }catch(error){
-    return NextResponse.json({ error: 'Failed to load chat messages' }, { status: 500 });
+  }catch (error : any) {
+    console.error('GET organization error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

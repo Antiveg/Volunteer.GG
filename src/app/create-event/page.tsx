@@ -71,7 +71,7 @@ const EventCreateForm = () => {
 
       if (!res.ok) throw new Error("Failed to create event");
       router.push("/events");
-    } catch (error) {
+    } catch (_error) {
       setFormError("Failed to create event. Please try again.");
     }
   }

@@ -1,7 +1,5 @@
-import { DataTypes, Optional, Model, Sequelize } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from '../sequelize'
-import { UserAttributes } from '@/types'
-import EventParticipant from './eventparticipant';
 
 const User = sequelize.define('User', {
   id: {

@@ -17,14 +17,14 @@ const mainVariant = {
   },
 };
 
-const secondaryVariant = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-  },
-};
+// const secondaryVariant = {
+//   initial: {
+//     opacity: 0,
+//   },
+//   animate: {
+//     opacity: 1,
+//   },
+// };
 
 export const FileUpload = ({
   onChange,
@@ -42,7 +42,9 @@ export const FileUpload = ({
 
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    onChange && onChange(newFiles);
+    if(onChange){
+      onChange(newFiles);
+    }
   };
 
   const handleRemoveFile = (indexToRemove: number) => {

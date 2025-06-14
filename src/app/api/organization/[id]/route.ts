@@ -94,7 +94,8 @@ export async function GET(
     }
 
     return NextResponse.json(plainOrganization)
-  }catch(error){
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+  }catch (error) {
+    console.error('GET organization error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

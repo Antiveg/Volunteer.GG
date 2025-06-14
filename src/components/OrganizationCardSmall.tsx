@@ -26,7 +26,7 @@ const OrganizationCardSmall = ({ organization } : Props) => {
 
   const {
     logo_url, name, avg_rating, credibility,
-    description, hosted_count, id
+    description, id
   } = organization
 
   const organization_details_url = `/organization-detail/${id}`

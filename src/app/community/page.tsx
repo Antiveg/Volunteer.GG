@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { events_api_result } from '../../dummies/dummy_data_frontend'
 import { ErrorBox, Footer, LoadingBox, SearchBar } from '@/components';
 import { useOrganizations } from '@/hooks/useOrganizations';
 import { OrganizationAttributes, UserAttributes } from '@/types';
@@ -124,7 +123,7 @@ const SubTab = ({title, text, clicked} : any) => {
 
 const Community = () => {
 
-  const subPages = [<OrganizationPage/>, <FriendListPage/>]
+  const subPages = [<OrganizationPage key={1}/>, <FriendListPage key={2}/>]
   const [subpageidx, setSubPage] = useState(0)
 
   return (

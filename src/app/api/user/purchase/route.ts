@@ -67,6 +67,7 @@ export async function POST(req: Request){
 
     return NextResponse.json({ success: true, message: `${amount} ${type} purchased` })
   } catch (error) {
+    console.log("Error", error)
     return NextResponse.json({ error: "Failed to complete purchase" }, { status: 500 })
   }
 }

@@ -3,7 +3,7 @@ import { Achievement, Event, Item, Organization, OrganizationMember, User, UserA
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
-export async function GET(_req: NextRequest){
+export async function GET(){
 
     const session = await getServerSession(authOptions)
     if (!session) {
@@ -97,6 +97,7 @@ export async function GET(_req: NextRequest){
 
         return NextResponse.json(combined);
     } catch (error) {
+        console.error('error:', error);
         return NextResponse.json(
             { message: 'An error occurred while fetching users' },
             { status: 500 }
