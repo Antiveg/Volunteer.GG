@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Event, EventParticipant, User } from '@/db/models'
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<Record<string, string>> }) {
   try{
-    const eventId = params.id
+    const { id } = await params
 
     const info = await Event.findOne({
-      where: { id: eventId },
+      where: { id: id },
       include: [
         {
           model: EventParticipant,

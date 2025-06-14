@@ -3,10 +3,12 @@ import { CategorizedEvent, Event, EventCategory, EventImage, Organization, Organ
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<Record<string, string>> }
 ){
+
+  const { id } = await params
   try{
-    const organization = await Organization.findByPk(params?.id, {
+    const organization = await Organization.findByPk(id, {
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
         {

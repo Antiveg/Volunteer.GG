@@ -3,7 +3,7 @@ import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, O
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { uid: string } }
+  { params }: { params: Promise<Record<string, string>> }
 ){
   const { uid } = await params
   const events = await Event.findAll({
