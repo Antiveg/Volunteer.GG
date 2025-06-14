@@ -6,7 +6,7 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(
   request: Request,
-  { params }: { params: Record<string, string> }
+  { params }: { params: Promise<Record<string, string>> }
 ) {
 
   const { receipient_id } = await params
