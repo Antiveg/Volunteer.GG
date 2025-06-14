@@ -6,6 +6,7 @@ export async function GET(){
     const items = await Item.findAll()
     return NextResponse.json(items)
   }catch(error){
+    console.log("error", error)
     return NextResponse.json({ error: 'Failed to fetch items' }, { status: 500 })
   }
 }

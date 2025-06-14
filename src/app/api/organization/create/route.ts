@@ -14,7 +14,7 @@ export async function POST(req: NextRequest){
 
   const body = await req.arrayBuffer()
   const stream = Readable.from(Buffer.from(body))
-  // @ts-ignore
+  // @ts-expect-error: unknown type property of stream
   stream.headers = Object.fromEntries(req.headers.entries())
 
   try{

@@ -69,6 +69,7 @@ const OrganizationCreateForm = () => {
       if (!res.ok) throw new Error("Failed to create organization");
       router.push("/community");
     } catch (error) {
+      if (process.env.NODE_ENV !== 'production') console.error(error)
       setFormError("Failed to create organization. Please try again.");
     }
   };

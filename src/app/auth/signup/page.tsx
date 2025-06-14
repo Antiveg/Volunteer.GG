@@ -83,8 +83,8 @@ export default function Signup() {
             onChange={() => {
               if (errors.name) {
                 setErrors((prev) => {
-                  const { name : _unused, ...rest } = prev;
-                  return rest;
+                  const { name, ...rest } = prev;
+                  return rest
                 })
               }
             }}/>

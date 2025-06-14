@@ -13,6 +13,7 @@ export async function PATCH(req: NextRequest){
 
     return NextResponse.json({ success: true })
   }catch(err){
+    console.log("error", err)
     return NextResponse.json({ error: 'Failed to update' }, { status: 500 })
   }
 }

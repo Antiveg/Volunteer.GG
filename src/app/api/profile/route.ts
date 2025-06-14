@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { Achievement, Event, Item, Organization, OrganizationMember, User, UserAchievement, UserCertificate, UserHistory, UserPurchase, UserRelation } from '@/db/models'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'

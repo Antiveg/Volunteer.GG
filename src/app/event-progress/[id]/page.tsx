@@ -115,6 +115,7 @@ const EventProgressPage = () => {
 
   return (
     <div className="mx-auto p-4 h-full">
+      <p className='hidden'>{isJoined}</p>
       <div className="flex flex-col md:flex-row gap-8 h-full">
 
         <div className="md:w-1/2 space-y-2">
