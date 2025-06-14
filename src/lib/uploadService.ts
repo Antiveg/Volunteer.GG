@@ -1,3 +1,4 @@
+// @ts-expect-error: formidable has no types
 import formidable from "formidable";
 import { mkdir, stat } from "fs/promises";
 import path from "path";
