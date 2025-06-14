@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<Record<string, string>> }
 ){
   try{
-    const { id } = params
+    const { id } = await params
     const event = await Event.findOne({
         attributes: {
             exclude: ['createdAt', 'updatedAt']
