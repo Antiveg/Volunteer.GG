@@ -3,7 +3,7 @@ import { CategorizedEvent, Event, EventCategory, EventImage, EventParticipant, O
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<Record<string, string>> }
 ){
   try{
     const { id } = params
