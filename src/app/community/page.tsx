@@ -7,8 +7,14 @@ import { OrganizationAttributes, UserAttributes } from '@/types';
 import OrganizationCardSmall from '@/components/OrganizationCardSmall';
 import { useUsers } from '@/hooks/useUsers';
 import { FriendList } from '@/components/FriendList';
+import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const OrganizationPage = () => {
+  
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const {
     data: organizations,
@@ -43,6 +49,12 @@ const OrganizationPage = () => {
   return (
     <div className="flex flex-1 flex-col">
       <SearchBar search={search} handleSearch={handleSearch}/>
+      <Button variant="default" 
+      onClick={() => router.push('/create-organization')}
+      disabled={!session}
+      className={!session ? "bg-red-500 ml-auto mt-4" : "bg-blue-500 ml-auto mt-4"}>
+        Create New Organization
+      </Button>
       {filteredOrganizations && filteredOrganizations?.length > 0 &&
         <main className="mb-10 mt-4 w-128 flex grid gap-4 grid-rows-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 p-2 rounded-lg">
           {filteredOrganizations.map(organization => (

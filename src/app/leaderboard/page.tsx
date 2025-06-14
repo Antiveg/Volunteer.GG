@@ -1,6 +1,5 @@
 "use client"
-import ErrorBox from "@/components/ErrorBox";
-import LoadingBox from "@/components/LoadingBox";
+import { ErrorBox, LoadingBox } from "@/components";
 import { useUsers } from "@/hooks/useUsers";
 import { UserAttributes } from "@/types";
 
